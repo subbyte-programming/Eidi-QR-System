@@ -3,163 +3,304 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>🌙 Eid Eidi – Complete App</title>
+  <title>🌙 Eid Eidi – Perfect App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
-/* =============================================
-   EID EIDI APP – COMPLETE SELF-CONTAINED
-   ============================================= */
-:root {
-  --gold: #D4AF37;
-  --gold-light: #F5D76E;
-  --gold-dark: #A67C00;
-  --emerald: #006B3C;
-  --emerald-light: #00A86B;
-  --emerald-dark: #004A29;
-  --cream: #FFF8E7;
-  --dark: #1A0A00;
-  --white: #FFFFFF;
-  --danger: #C0392B;
-  --shadow-gold: 0 0 30px rgba(212,175,55,0.4);
-  --shadow-deep: 0 20px 60px rgba(0,0,0,0.5);
-  --border-gold: 2px solid rgba(212,175,55,0.6);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:var(--emerald-dark);min-height:100vh;overflow-x:hidden;color:var(--cream)}
-.bg-pattern{position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(212,175,55,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(0,168,107,.12) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(212,175,55,.03) 40px,rgba(212,175,55,.03) 41px);pointer-events:none;z-index:0}
-.stars-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.star{position:absolute;width:3px;height:3px;background:var(--gold-light);border-radius:50%;animation:twinkle 3s infinite}
-@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
-.floating-decor{position:fixed;pointer-events:none;z-index:0;font-size:2rem;opacity:.12;animation:floatDecor 8s ease-in-out infinite}
-.floating-decor:nth-child(1){top:10%;left:5%;animation-delay:0s;font-size:3rem}
-.floating-decor:nth-child(2){top:30%;right:8%;animation-delay:2s;font-size:2.5rem}
-.floating-decor:nth-child(3){bottom:20%;left:10%;animation-delay:4s}
-.floating-decor:nth-child(4){top:60%;right:5%;animation-delay:1s;font-size:3.5rem}
-.floating-decor:nth-child(5){bottom:10%;right:20%;animation-delay:3s}
-.floating-decor:nth-child(6){top:80%;left:30%;animation-delay:5s;font-size:1.5rem}
-@keyframes floatDecor{0%,100%{transform:translateY(0) rotate(0deg);opacity:.12}50%{transform:translateY(-20px) rotate(10deg);opacity:.2}}
-#app{position:relative;z-index:1;min-height:100vh}
-.screen{display:none;min-height:100vh;padding:20px;justify-content:center;align-items:center;flex-direction:column}
-.screen.active{display:flex}
-.card{background:linear-gradient(135deg,rgba(0,75,41,.95) 0%,rgba(0,30,15,.98) 100%);border:var(--border-gold);border-radius:24px;padding:40px;width:100%;max-width:460px;box-shadow:var(--shadow-deep),var(--shadow-gold);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
-.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
-.eid-logo{text-align:center;margin-bottom:30px}
-.moon-icon{font-size:4rem;display:block;animation:moonGlow 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}
-@keyframes moonGlow{0%,100%{transform:scale(1) rotate(-5deg);filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}50%{transform:scale(1.1) rotate(5deg);filter:drop-shadow(0 0 40px rgba(245,215,110,1))}}
-.eid-logo h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold);text-shadow:0 0 20px rgba(212,175,55,.6);letter-spacing:2px;margin-top:10px}
-.eid-logo .subtitle{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold-light);opacity:.8;margin-top:4px}
-.ornament{text-align:center;color:var(--gold);font-size:1.2rem;letter-spacing:8px;margin:16px 0;opacity:.7}
-.child-name-display{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:16px 24px;text-align:center;margin:20px 0}
-.child-name-display .greeting{font-size:.85rem;color:rgba(255,248,231,.6);text-transform:uppercase;letter-spacing:2px}
-.child-name-display .name{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--gold);text-shadow:0 0 15px rgba(212,175,55,.5)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 32px;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s ease;text-transform:uppercase;letter-spacing:1.5px;position:relative;overflow:hidden}
-.btn:active{transform:scale(.97)}
-.btn-gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:var(--dark);box-shadow:0 4px 20px rgba(212,175,55,.5)}
-.btn-gold:hover{box-shadow:0 8px 30px rgba(212,175,55,.7);transform:translateY(-2px)}
-.btn-emerald{background:linear-gradient(135deg,var(--emerald-dark),var(--emerald),var(--emerald-light));color:var(--white);box-shadow:0 4px 20px rgba(0,107,60,.5);border:1px solid rgba(212,175,55,.3)}
-.btn-outline{background:transparent;color:var(--gold);border:2px solid var(--gold)}
-.btn-outline:hover{background:rgba(212,175,55,.1)}
-.btn-danger{background:linear-gradient(135deg,#8b0000,var(--danger));color:#fff}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
-.form-group{margin-bottom:20px}
-.form-group label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:8px;font-weight:600}
-.form-group input{width:100%;padding:14px 20px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.3);border-radius:12px;color:var(--cream);font-family:'Poppins',sans-serif;font-size:1rem;transition:all .3s;outline:none}
-.form-group input:focus{border-color:var(--gold);background:rgba(212,175,55,.07);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
-.form-group input::placeholder{color:rgba(255,248,231,.3)}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:50px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}
-.badge-pending{background:rgba(255,165,0,.15);border:1px solid rgba(255,165,0,.4);color:#ffa500}
-.badge-approved{background:rgba(0,168,107,.15);border:1px solid rgba(0,168,107,.4);color:var(--emerald-light)}
-.badge-claimed{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.4);color:var(--gold)}
-.hourglass-spin{font-size:4rem;display:inline-block;animation:hourglassSpin 2s ease-in-out infinite;filter:drop-shadow(0 0 15px rgba(212,175,55,.6))}
-@keyframes hourglassSpin{0%,100%{transform:rotate(0deg)}45%{transform:rotate(0deg)}55%{transform:rotate(180deg)}}
-.pulse-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
-.pulse-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;animation:pulseDot 1.4s ease-in-out infinite}
-.pulse-dot:nth-child(2){animation-delay:.2s}
-.pulse-dot:nth-child(3){animation-delay:.4s}
-@keyframes pulseDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1.2);opacity:1}}
-.trials-counter{display:flex;justify-content:center;gap:10px;margin:16px 0}
-.trial-pip{width:40px;height:8px;background:rgba(212,175,55,.2);border-radius:4px;border:1px solid rgba(212,175,55,.3);transition:all .5s}
-.trial-pip.used{background:linear-gradient(90deg,var(--gold-dark),var(--gold));box-shadow:0 0 10px rgba(212,175,55,.5)}
-.wheel-container{position:relative;width:300px;height:300px;margin:20px auto}
-.wheel-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2rem;z-index:10;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:pointerBob 1s ease-in-out infinite}
-@keyframes pointerBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
-#wheel-canvas{border-radius:50%;box-shadow:0 0 40px rgba(212,175,55,.4),var(--shadow-deep)}
-.reward-display{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(245,215,110,.05));border:2px solid var(--gold);border-radius:20px;padding:30px;margin:24px 0;position:relative}
-.reward-amount{font-family:'Cinzel Decorative',serif;font-size:3rem;color:var(--gold);text-shadow:0 0 30px rgba(212,175,55,.8);display:block}
-.reward-label{font-size:.85rem;color:rgba(255,248,231,.6);text-transform:uppercase;letter-spacing:2px;margin-top:8px}
-.claim-icon{font-size:3rem;display:block;margin-bottom:10px;animation:celebrateSpin 1s ease-out}
-@keyframes celebrateSpin{0%{transform:scale(0) rotate(-180deg);opacity:0}70%{transform:scale(1.2) rotate(10deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
-.confetti-piece{position:fixed;pointer-events:none;z-index:9999;animation:confettiFall linear forwards}
-@keyframes confettiFall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
-#toast{position:fixed;top:20px;right:20px;background:linear-gradient(135deg,var(--emerald-dark),var(--emerald));border:1px solid var(--gold);border-radius:12px;padding:16px 24px;color:var(--cream);font-size:.9rem;box-shadow:var(--shadow-deep);z-index:9999;transform:translateX(120%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:320px}
-#toast.show{transform:translateX(0)}
-#toast.error{background:linear-gradient(135deg,#3d0000,var(--danger));border-color:var(--danger)}
-.alert-box{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);border-radius:12px;padding:16px 20px;font-size:.88rem;color:rgba(255,248,231,.8);line-height:1.6;margin:16px 0}
-.alert-box.info{border-color:rgba(0,168,107,.3);background:rgba(0,168,107,.06)}
-.alert-box.warning{border-color:rgba(255,165,0,.3);background:rgba(255,165,0,.06);color:#ffa500}
-.alert-box.success{border-color:rgba(0,168,107,.4);background:rgba(0,168,107,.1);color:var(--emerald-light)}
-@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .5s ease forwards}
-.page-eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:4px;color:var(--gold-light);opacity:.6;text-align:center;margin-bottom:4px}
-
-/* ===== ADMIN OVERLAY ===== */
-.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:2000;display:none;overflow-y:auto}
-.admin-overlay.open{display:block}
-.admin-overlay .admin-container{max-width:1100px;margin:0 auto;padding:24px}
-.admin-header{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(0,107,60,.1));border:var(--border-gold);border-radius:20px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.admin-header h1{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:var(--gold)}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-.stat-card{background:linear-gradient(135deg,rgba(0,75,41,.8),rgba(0,30,15,.9));border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:20px;text-align:center;transition:transform .3s,box-shadow .3s}
-.stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(212,175,55,.2);border-color:rgba(212,175,55,.4)}
-.stat-icon{font-size:1.8rem;margin-bottom:8px}
-.stat-number{font-family:'Cinzel Decorative',serif;font-size:2rem;color:var(--gold)}
-.stat-label{font-size:.72rem;color:rgba(255,248,231,.5);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
-.admin-section{background:linear-gradient(135deg,rgba(0,50,28,.9),rgba(0,20,10,.95));border:1px solid rgba(212,175,55,.2);border-radius:20px;padding:24px;margin-bottom:20px}
-.admin-section h2{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.table-wrap{overflow-x:auto;border-radius:12px}
-table{width:100%;border-collapse:collapse;font-size:.85rem}
-thead tr{background:rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.2)}
-th{padding:12px 14px;text-align:left;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:2px;white-space:nowrap}
-td{padding:12px 14px;color:rgba(255,248,231,.8);border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(212,175,55,.04)}
-.credentials-box{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:6px 10px;font-family:monospace;font-size:.78rem;color:var(--gold-light)}
-.tab-bar{display:flex;gap:4px;margin-bottom:20px;background:rgba(0,0,0,.3);border-radius:12px;padding:5px;border:1px solid rgba(212,175,55,.15);flex-wrap:wrap}
-.tab-btn{flex:1;min-width:80px;padding:9px 6px;background:transparent;border:none;border-radius:8px;color:rgba(255,248,231,.5);font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .3s;text-align:center}
-.tab-btn.active{background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.1));color:var(--gold);border:1px solid rgba(212,175,55,.3)}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.no-data{text-align:center;padding:32px;color:rgba(255,248,231,.3);font-size:.88rem}
-.btn-sm{padding:8px 18px!important;font-size:.78rem!important;border-radius:8px!important;letter-spacing:.5px!important}
-.btn-xs{padding:5px 12px!important;font-size:.72rem!important;border-radius:6px!important}
-.admin-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 18px;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:.5px}
-.admin-btn.gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--dark)}
-.admin-btn.outline{background:transparent;color:var(--gold);border:2px solid var(--gold)}
-.admin-btn.danger{background:linear-gradient(135deg,#8b0000,var(--danger));color:#fff}
-.admin-btn:hover{opacity:.9;transform:translateY(-1px)}
-.admin-btn:active{transform:scale(.97)}
-.adm-input{padding:10px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.3);border-radius:10px;color:var(--cream);font-family:'Poppins',sans-serif;font-size:.88rem;outline:none;transition:all .3s}
-.adm-input:focus{border-color:var(--gold);background:rgba(212,175,55,.07)}
-.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.qr-card{background:rgba(0,50,28,.8);border:1px solid rgba(212,175,55,.3);border-radius:16px;padding:18px;text-align:center}
-.qr-wrapper{display:flex;justify-content:center;align-items:center;padding:12px;background:#fff;border-radius:10px;margin:10px auto;width:fit-content}
-.notification-dot{background:var(--danger);color:#fff;border-radius:50px;padding:3px 12px;font-size:.75rem;animation:badgePulse 1s infinite}
-@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-@media(max-width:600px){.card{padding:24px 18px;border-radius:18px}.wheel-container{width:260px;height:260px}.reward-amount{font-size:2.2rem}.admin-header{flex-direction:column;text-align:center}}
-::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.4);border-radius:3px}
+    /* ========== ROOT & RESET ========== */
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5D76E;
+      --gold-dark: #A67C00;
+      --emerald: #006B3C;
+      --emerald-light: #00A86B;
+      --emerald-dark: #004A29;
+      --cream: #FFF8E7;
+      --danger: #C0392B;
+      --shadow-gold: 0 0 30px rgba(212,175,55,0.4);
+      --shadow-deep: 0 20px 60px rgba(0,0,0,0.5);
+      --border-gold: 2px solid rgba(212,175,55,0.6);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--emerald-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--cream);
+    }
+    /* ========== BACKGROUND DECOR ========== */
+    .bg-pattern {
+      position: fixed; inset:0; z-index:0;
+      background: radial-gradient(ellipse at 20% 20%, rgba(212,175,55,.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(0,168,107,.12) 0%, transparent 50%),
+                  repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(212,175,55,.03) 40px, rgba(212,175,55,.03) 41px);
+      pointer-events: none;
+    }
+    .stars-container {
+      position: fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+    }
+    .star {
+      position: absolute; width:3px; height:3px; background:var(--gold-light); border-radius:50%;
+      animation: twinkle 3s infinite;
+    }
+    @keyframes twinkle { 0%,100%{opacity:.2;transform:scale(1)} 50%{opacity:1;transform:scale(1.5)} }
+    .floating-decor {
+      position: fixed; pointer-events:none; z-index:0; font-size:2rem; opacity:.12;
+      animation: floatDecor 8s ease-in-out infinite;
+    }
+    .floating-decor:nth-child(1){top:10%;left:5%;animation-delay:0s;font-size:3rem}
+    .floating-decor:nth-child(2){top:30%;right:8%;animation-delay:2s;font-size:2.5rem}
+    .floating-decor:nth-child(3){bottom:20%;left:10%;animation-delay:4s}
+    .floating-decor:nth-child(4){top:60%;right:5%;animation-delay:1s;font-size:3.5rem}
+    .floating-decor:nth-child(5){bottom:10%;right:20%;animation-delay:3s}
+    .floating-decor:nth-child(6){top:80%;left:30%;animation-delay:5s;font-size:1.5rem}
+    @keyframes floatDecor { 0%,100%{transform:translateY(0) rotate(0);opacity:.12} 50%{transform:translateY(-20px) rotate(10deg);opacity:.2} }
+    /* ========== APP CONTAINER ========== */
+    #app { position:relative; z-index:1; min-height:100vh; }
+    .screen { display:none; min-height:100vh; padding:20px; justify-content:center; align-items:center; flex-direction:column; }
+    .screen.active { display:flex; }
+    .card {
+      background: linear-gradient(135deg, rgba(0,75,41,.95) 0%, rgba(0,30,15,.98) 100%);
+      border: var(--border-gold);
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: var(--shadow-deep), var(--shadow-gold);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .card::before, .card::after {
+      content: ''; position: absolute; left:0; right:0; height:3px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    }
+    .card::before { top:0; }
+    .card::after { bottom:0; }
+    /* ========== TYPOGRAPHY & ELEMENTS ========== */
+    .eid-logo { text-align:center; margin-bottom:30px; }
+    .moon-icon {
+      font-size: 4rem; display:block;
+      animation: moonGlow 3s ease-in-out infinite, swing 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(212,175,55,.8));
+    }
+    @keyframes moonGlow { 0%,100%{transform:scale(1) rotate(-5deg);filter:drop-shadow(0 0 20px rgba(212,175,55,.8))} 50%{transform:scale(1.1) rotate(5deg);filter:drop-shadow(0 0 40px rgba(245,215,110,1))} }
+    @keyframes swing { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+    .eid-logo h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.4rem,4vw,2rem);
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(212,175,55,.6);
+      letter-spacing: 2px;
+      margin-top: 10px;
+    }
+    .subtitle { font-family:'Amiri',serif; font-size:1.1rem; color:var(--gold-light); opacity:.8; margin-top:4px; }
+    .ornament { text-align:center; color:var(--gold); font-size:1.2rem; letter-spacing:8px; margin:16px 0; opacity:.7; }
+    .child-name-display {
+      background: rgba(212,175,55,.1);
+      border: 1px solid rgba(212,175,55,.3);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .greeting { font-size:.85rem; color:rgba(255,248,231,.6); text-transform:uppercase; letter-spacing:2px; }
+    .name { font-family:'Cinzel Decorative',serif; font-size:1.8rem; color:var(--gold); text-shadow:0 0 15px rgba(212,175,55,.5); }
+    .btn {
+      display: inline-flex; align-items:center; justify-content:center; gap:10px; width:100%;
+      padding: 16px 32px; border:none; border-radius: 50px;
+      font-family: 'Poppins', sans-serif; font-size:1rem; font-weight:600;
+      cursor: pointer; transition: all .3s ease;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      position: relative; overflow: hidden;
+    }
+    .btn:active { transform:scale(.97); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--dark); box-shadow: 0 4px 20px rgba(212,175,55,.5);
+    }
+    .btn-gold:hover { box-shadow: 0 8px 30px rgba(212,175,55,.7); transform:translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--gold); border: 2px solid var(--gold);
+    }
+    .btn-outline:hover { background: rgba(212,175,55,.1); }
+    .btn-danger { background: linear-gradient(135deg,#8b0000,var(--danger)); color:#fff; }
+    .btn:disabled { opacity:.5; cursor:not-allowed; transform:none!important; }
+    /* ========== FORMS ========== */
+    .form-group { margin-bottom:20px; }
+    .form-group label {
+      display:block; font-size:.8rem; text-transform:uppercase; letter-spacing:2px;
+      color:var(--gold); margin-bottom:8px; font-weight:600;
+    }
+    .form-group input {
+      width:100%; padding:14px 20px; background:rgba(255,255,255,.05);
+      border:1px solid rgba(212,175,55,.3); border-radius:12px;
+      color:var(--cream); font-family:'Poppins',sans-serif; font-size:1rem;
+      transition:all .3s; outline:none;
+    }
+    .form-group input:focus {
+      border-color:var(--gold); background:rgba(212,175,55,.07); box-shadow:0 0 0 3px rgba(212,175,55,.15);
+    }
+    .form-group input::placeholder { color:rgba(255,248,231,.3); }
+    /* ========== BADGES ========== */
+    .badge {
+      display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:50px;
+      font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;
+    }
+    .badge-pending { background:rgba(255,165,0,.15); border:1px solid rgba(255,165,0,.4); color:#ffa500; }
+    .badge-approved { background:rgba(0,168,107,.15); border:1px solid rgba(0,168,107,.4); color:var(--emerald-light); }
+    .badge-claimed { background:rgba(212,175,55,.15); border:1px solid rgba(212,175,55,.4); color:var(--gold); }
+    /* ========== WAITING ========== */
+    .hourglass-spin { font-size:4rem; display:inline-block; animation:hourglassSpin 2s ease-in-out infinite; filter:drop-shadow(0 0 15px rgba(212,175,55,.6)); }
+    @keyframes hourglassSpin { 0%,100%{transform:rotate(0)} 45%{transform:rotate(0)} 55%{transform:rotate(180deg)} }
+    .pulse-dots { display:flex; justify-content:center; gap:8px; margin-top:20px; }
+    .pulse-dot { width:10px; height:10px; background:var(--gold); border-radius:50%; animation:pulseDot 1.4s ease-in-out infinite; }
+    .pulse-dot:nth-child(2){animation-delay:.2s}
+    .pulse-dot:nth-child(3){animation-delay:.4s}
+    @keyframes pulseDot { 0%,80%,100%{transform:scale(.6);opacity:.4} 40%{transform:scale(1.2);opacity:1} }
+    /* ========== WHEEL ========== */
+    .trials-counter { display:flex; justify-content:center; gap:10px; margin:16px 0; }
+    .trial-pip {
+      width:40px; height:8px; background:rgba(212,175,55,.2); border-radius:4px;
+      border:1px solid rgba(212,175,55,.3); transition:all .5s;
+    }
+    .trial-pip.used { background:linear-gradient(90deg,var(--gold-dark),var(--gold)); box-shadow:0 0 10px rgba(212,175,55,.5); }
+    .wheel-container { position:relative; width:300px; height:300px; margin:20px auto; }
+    .wheel-pointer {
+      position:absolute; top:-20px; left:50%; transform:translateX(-50%);
+      font-size:2rem; z-index:10; filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));
+      animation: pointerBob 1s ease-in-out infinite;
+    }
+    @keyframes pointerBob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-4px)} }
+    #wheel-canvas { border-radius:50%; box-shadow:0 0 40px rgba(212,175,55,.4), var(--shadow-deep); }
+    .reward-display {
+      background: linear-gradient(135deg, rgba(212,175,55,.1), rgba(245,215,110,.05));
+      border: 2px solid var(--gold); border-radius:20px; padding:30px; margin:24px 0; position:relative;
+    }
+    .reward-amount { font-family:'Cinzel Decorative',serif; font-size:3rem; color:var(--gold); text-shadow:0 0 30px rgba(212,175,55,.8); display:block; }
+    .reward-label { font-size:.85rem; color:rgba(255,248,231,.6); text-transform:uppercase; letter-spacing:2px; margin-top:8px; }
+    .claim-icon { font-size:3rem; display:block; margin-bottom:10px; animation:celebrateSpin 1s ease-out; }
+    @keyframes celebrateSpin { 0%{transform:scale(0) rotate(-180deg);opacity:0} 70%{transform:scale(1.2) rotate(10deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+    .confetti-piece {
+      position:fixed; pointer-events:none; z-index:9999;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall { 0%{transform:translateY(-100px) rotate(0);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
+    /* ========== TOAST ========== */
+    #toast {
+      position:fixed; top:20px; right:20px; background:linear-gradient(135deg,var(--emerald-dark),var(--emerald));
+      border:1px solid var(--gold); border-radius:12px; padding:16px 24px; color:var(--cream);
+      font-size:.9rem; box-shadow:var(--shadow-deep); z-index:9999;
+      transform:translateX(120%); transition:transform .4s cubic-bezier(.34,1.56,.64,1); max-width:320px;
+    }
+    #toast.show { transform:translateX(0); }
+    #toast.error { background:linear-gradient(135deg,#3d0000,var(--danger)); border-color:var(--danger); }
+    .alert-box {
+      background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.25); border-radius:12px;
+      padding:16px 20px; font-size:.88rem; color:rgba(255,248,231,.8); line-height:1.6; margin:16px 0;
+    }
+    .alert-box.info { border-color:rgba(0,168,107,.3); background:rgba(0,168,107,.06); }
+    .alert-box.warning { border-color:rgba(255,165,0,.3); background:rgba(255,165,0,.06); color:#ffa500; }
+    .alert-box.success { border-color:rgba(0,168,107,.4); background:rgba(0,168,107,.1); color:var(--emerald-light); }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation:fadeIn .5s ease forwards; }
+    .page-eyebrow { font-size:.7rem; text-transform:uppercase; letter-spacing:4px; color:var(--gold-light); opacity:.6; text-align:center; margin-bottom:4px; }
+    /* ========== ADMIN OVERLAY (IMPROVED) ========== */
+    .admin-overlay { position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:2000; display:none; overflow-y:auto; }
+    .admin-overlay.open { display:block; }
+    .admin-container { max-width:1100px; margin:0 auto; padding:24px; }
+    .admin-header {
+      background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(0,107,60,.1)); border:var(--border-gold);
+      border-radius:20px; padding:20px 28px; display:flex; justify-content:space-between;
+      align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;
+    }
+    .admin-header h1 { font-family:'Cinzel Decorative',serif; font-size:1.2rem; color:var(--gold); }
+    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:24px; }
+    .stat-card {
+      background:linear-gradient(135deg,rgba(0,75,41,.8),rgba(0,30,15,.9)); border:1px solid rgba(212,175,55,.2);
+      border-radius:16px; padding:20px; text-align:center; transition:transform .3s,box-shadow .3s;
+    }
+    .stat-card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(212,175,55,.2); border-color:rgba(212,175,55,.4); }
+    .stat-icon { font-size:1.8rem; margin-bottom:8px; }
+    .stat-number { font-family:'Cinzel Decorative',serif; font-size:2rem; color:var(--gold); }
+    .stat-label { font-size:.72rem; color:rgba(255,248,231,.5); text-transform:uppercase; letter-spacing:2px; margin-top:4px; }
+    .admin-section {
+      background:linear-gradient(135deg,rgba(0,50,28,.9),rgba(0,20,10,.95)); border:1px solid rgba(212,175,55,.2);
+      border-radius:20px; padding:24px; margin-bottom:20px;
+    }
+    .admin-section h2 { font-family:'Cinzel Decorative',serif; font-size:1rem; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .table-wrap { overflow-x:auto; border-radius:12px; }
+    table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    thead tr { background:rgba(212,175,55,.08); border-bottom:1px solid rgba(212,175,55,.2); }
+    th { padding:12px 14px; text-align:left; color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:2px; white-space:nowrap; }
+    td { padding:12px 14px; color:rgba(255,248,231,.8); border-bottom:1px solid rgba(255,255,255,.04); vertical-align:middle; }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:rgba(212,175,55,.04); }
+    .credentials-box { background:rgba(0,0,0,.4); border:1px solid rgba(212,175,55,.2); border-radius:8px; padding:6px 10px; font-family:monospace; font-size:.78rem; color:var(--gold-light); }
+    .tab-bar {
+      display:flex; gap:4px; margin-bottom:20px; background:rgba(0,0,0,.3); border-radius:12px;
+      padding:5px; border:1px solid rgba(212,175,55,.15); flex-wrap:wrap;
+    }
+    .tab-btn {
+      flex:1; min-width:80px; padding:9px 6px; background:transparent; border:none; border-radius:8px;
+      color:rgba(255,248,231,.5); font-family:'Poppins',sans-serif; font-size:.78rem; font-weight:500;
+      cursor:pointer; transition:all .3s; text-align:center;
+    }
+    .tab-btn.active { background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.1)); color:var(--gold); border:1px solid rgba(212,175,55,.3); }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .no-data { text-align:center; padding:32px; color:rgba(255,248,231,.3); font-size:.88rem; }
+    .admin-btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 18px;
+      border:none; border-radius:8px; font-family:'Poppins',sans-serif; font-size:.78rem; font-weight:600;
+      cursor:pointer; transition:all .3s; text-transform:uppercase; letter-spacing:.5px;
+    }
+    .admin-btn.gold { background:linear-gradient(135deg,var(--gold-dark),var(--gold)); color:var(--dark); }
+    .admin-btn.outline { background:transparent; color:var(--gold); border:2px solid var(--gold); }
+    .admin-btn.danger { background:linear-gradient(135deg,#8b0000,var(--danger)); color:#fff; }
+    .admin-btn:hover { opacity:.9; transform:translateY(-1px); }
+    .adm-input { padding:10px 14px; background:rgba(255,255,255,.05); border:1px solid rgba(212,175,55,.3); border-radius:10px; color:var(--cream); font-family:'Poppins',sans-serif; font-size:.88rem; outline:none; transition:all .3s; }
+    .adm-input:focus { border-color:var(--gold); background:rgba(212,175,55,.07); }
+    .qr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+    .qr-card { background:rgba(0,50,28,.8); border:1px solid rgba(212,175,55,.3); border-radius:16px; padding:18px; text-align:center; }
+    .qr-wrapper { display:flex; justify-content:center; align-items:center; padding:12px; background:#fff; border-radius:10px; margin:10px auto; width:fit-content; }
+    .notification-dot { background:var(--danger); color:#fff; border-radius:50px; padding:3px 12px; font-size:.75rem; animation:badgePulse 1s infinite; }
+    @keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    /* ========== SCRATCH CARD STYLES ========== */
+    .scratch-card {
+      width: 100%; height: 180px; background: #ccc; border-radius: 16px;
+      background-image: repeating-linear-gradient(45deg, #aaa 0px, #aaa 10px, #bbb 10px, #bbb 20px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: #333; cursor: pointer; user-select: none;
+      transition: all 0.3s;
+    }
+    .scratch-card.revealed { background: var(--gold); color: var(--dark); background-image: none; }
+    /* ========== SHARE BUTTON ========== */
+    .share-btn {
+      background: #25D366; border: none; color: white; padding: 8px 16px;
+      border-radius: 50px; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; cursor: pointer; margin-top: 8px;
+    }
+    /* ========== RESPONSIVE ========== */
+    @media(max-width:600px){
+      .card{padding:24px 18px;border-radius:18px}
+      .wheel-container{width:260px;height:260px}
+      .reward-amount{font-size:2.2rem}
+      .admin-header{flex-direction:column;text-align:center}
+    }
+    /* width */
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}
+    ::-webkit-scrollbar-thumb{background:rgba(212,175,55,.4);border-radius:3px}
   </style>
 </head>
 <body>
-
-<!-- Background Effects -->
 <div class="bg-pattern"></div>
-
 <div id="app">
 
-  <!-- ============ WELCOME SCREEN ============ -->
+  <!-- ========== WELCOME SCREEN ========== -->
   <div id="welcome-screen" class="screen active">
     <div class="card fade-in">
       <div class="eid-logo">
@@ -181,7 +322,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
     </div>
   </div>
 
-  <!-- ============ WAITING SCREEN ============ -->
+  <!-- ========== WAITING SCREEN ========== -->
   <div id="waiting-screen" class="screen">
     <div class="card fade-in">
       <div class="eid-logo">
@@ -191,9 +332,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
       <div class="ornament">✦ ✧ ✦</div>
       <div style="text-align:center;margin:24px 0">
         <div class="hourglass-spin">⏳</div>
-        <div class="pulse-dots">
-          <div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div>
-        </div>
+        <div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
       </div>
       <div class="alert-box warning">⏳ Aapki request bhej di gayi! Admin approve karega aur password de ga.</div>
       <div class="alert-box info">💡 Admin se <strong>username aur password</strong> maangein.</div>
@@ -201,7 +340,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
     </div>
   </div>
 
-  <!-- ============ LOGIN SCREEN ============ -->
+  <!-- ========== LOGIN SCREEN ========== -->
   <div id="login-screen" class="screen">
     <div class="card fade-in">
       <div class="eid-logo">
@@ -212,18 +351,31 @@ tr:hover td{background:rgba(212,175,55,.04)}
       <div class="alert-box success">✅ Admin se password lein aur login karein.</div>
       <div class="form-group" style="margin-top:18px">
         <label>Username</label>
-        <input type="text" id="login-username" placeholder="Admin ka diya hua username" autocomplete="username">
+        <input type="text" id="login-username" placeholder="Admin ka diya hua username">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="login-password" placeholder="Admin ka diya hua password" autocomplete="current-password" onkeydown="if(event.key==='Enter')attemptLogin()">
+        <input type="password" id="login-password" placeholder="Admin ka diya hua password" onkeydown="if(event.key==='Enter')attemptLogin()">
       </div>
       <button class="btn btn-gold" onclick="attemptLogin()">🎡 Login & Eidi Unlock!</button>
       <button class="btn btn-outline" style="margin-top:12px" onclick="showScreen('waiting-screen')">← Wapas</button>
     </div>
   </div>
 
-  <!-- ============ WHEEL SCREEN ============ -->
+  <!-- ========== SCRATCH CARD SURPRISE (Optional) ========== -->
+  <div id="scratch-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <div class="eid-logo">
+        <span class="moon-icon">🎁</span>
+        <h1>Scratch & Win!</h1>
+      </div>
+      <div class="alert-box info">Apna bonus scratch karo! Phir wheel spin karo.</div>
+      <div id="scratch-card" class="scratch-card" onclick="scratchReveal()">✨ Scratch ✨</div>
+      <button class="btn btn-gold" style="margin-top:20px" onclick="goToWheelFromScratch()">🎡 Wheel Par Jayen</button>
+    </div>
+  </div>
+
+  <!-- ========== WHEEL SCREEN ========== -->
   <div id="wheel-screen" class="screen">
     <div class="card fade-in" style="text-align:center;max-width:520px">
       <div class="eid-logo">
@@ -231,7 +383,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
         <h1>Eidi Wheel!</h1>
         <div class="subtitle">Apni Eidi Spin Karein</div>
       </div>
-      <div class="alert-box" style="margin-bottom:12px">🎯 Sirf <strong>3 spins!</strong> Akhri spin par asli Eidi reveal hogi.</div>
+      <div class="alert-box" style="margin-bottom:12px">🎯 Sirf <strong>3 spins!</strong> Akhri spin par asli Eidi milegi.</div>
       <div class="trials-counter">
         <div class="trial-pip"></div><div class="trial-pip"></div><div class="trial-pip"></div>
       </div>
@@ -243,7 +395,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
     </div>
   </div>
 
-  <!-- ============ RESULT SCREEN ============ -->
+  <!-- ========== RESULT SCREEN ========== -->
   <div id="result-screen" class="screen">
     <div class="card fade-in" style="text-align:center">
       <div class="eid-logo">
@@ -263,10 +415,12 @@ tr:hover td{background:rgba(212,175,55,.04)}
       </div>
       <div class="alert-box success">✅ Eidi claim ho gayi! Admin se tuhfa hasil karein. Eid Mubarak! 🌙⭐</div>
       <div class="alert-box warning">🔒 Yeh Eidi sirf ek baar claim hoti hai.</div>
+      <!-- Share button -->
+      <button class="share-btn" onclick="shareEidi()">📤 Eidi Share Karein</button>
     </div>
   </div>
 
-  <!-- ============ ALREADY CLAIMED ============ -->
+  <!-- ========== ALREADY CLAIMED ========== -->
   <div id="claimed-screen" class="screen">
     <div class="card fade-in" style="text-align:center">
       <span style="font-size:5rem;display:block;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(212,175,55,.6))">✅</span>
@@ -275,7 +429,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
     </div>
   </div>
 
-  <!-- ============ INVALID ============ -->
+  <!-- ========== INVALID ========== -->
   <div id="invalid-screen" class="screen">
     <div class="card fade-in" style="text-align:center">
       <span style="font-size:4rem;display:block;margin-bottom:16px">❌</span>
@@ -287,7 +441,7 @@ tr:hover td{background:rgba(212,175,55,.04)}
 
 </div><!-- #app -->
 
-<!-- ============ ADMIN OVERLAY ============ -->
+<!-- ========== ADMIN OVERLAY ========== -->
 <div id="admin-overlay" class="admin-overlay">
   <!-- Admin Login -->
   <div id="admin-login-panel" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
@@ -388,14 +542,13 @@ tr:hover td{background:rgba(212,175,55,.04)}
       <div id="aqr" class="tab-content">
         <div class="admin-section">
           <h2>📱 QR Codes</h2>
-          <p style="color:rgba(255,248,231,.6);font-size:.85rem;margin-bottom:16px">Har bachay ka unique QR code generate karein aur envelope mein daalein.</p>
+          <p style="color:rgba(255,248,231,.6);font-size:.85rem;margin-bottom:16px">Har bachay ka unique QR code generate karein aur envelope mein daalein. <strong>Ab share bhi kar sakte ho!</strong></p>
           <div style="margin-bottom:20px">
             <button class="admin-btn gold" onclick="generateAllQRs()">🖨️ Sab QR Generate Karein</button>
           </div>
           <div id="qr-grid" class="qr-grid"></div>
         </div>
       </div>
-
     </div>
   </div>
 </div><!-- admin-overlay -->
@@ -403,21 +556,17 @@ tr:hover td{background:rgba(212,175,55,.04)}
 <div id="toast"></div>
 
 <script>
-// ===================================================
-//  EID EIDI – COMPLETE APPLICATION LOGIC
-// ===================================================
-
 // ========== DATABASE (localStorage) ==========
 const DB = {
   key: 'eid_eidi_db',
   defaultData() {
     return {
       children: {
-        CHILD001: { name: "Ahmed", assigned_reward: "200", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
-        CHILD002: { name: "Fatima", assigned_reward: "500", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
-        CHILD003: { name: "Zain", assigned_reward: "Gift Box", reward_type: "gift", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
-        CHILD004: { name: "Ayesha", assigned_reward: "100", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
-        CHILD005: { name: "Omar", assigned_reward: "50", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+        CHILD001: { name: "Ahmed", assigned_reward: "200", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null, scratch_bonus: false },
+        CHILD002: { name: "Fatima", assigned_reward: "500", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null, scratch_bonus: false },
+        CHILD003: { name: "Zain", assigned_reward: "Gift Box", reward_type: "gift", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null, scratch_bonus: false },
+        CHILD004: { name: "Ayesha", assigned_reward: "100", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null, scratch_bonus: false },
+        CHILD005: { name: "Omar", assigned_reward: "50", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null, scratch_bonus: false },
       },
       admin: { password: "EidAdmin2025!" }
     };
@@ -484,7 +633,7 @@ function initStars() {
     c.appendChild(s);
   }
   document.body.appendChild(c);
-  ['☪️','🌙','⭐','🪔','✨','🌟'].forEach((e,i) => {
+  ['☪️','🌙','⭐','🪔','✨','🌟'].forEach((e) => {
     const d = document.createElement('div'); d.className = 'floating-decor'; d.textContent = e;
     document.body.appendChild(d);
   });
@@ -508,7 +657,12 @@ function route() {
   const child = DB.getChild(App.childId);
   App.child = child;
   if (child.eidi_claimed) { showScreen('claimed-screen'); return; }
-  if (child.login_approved && isLoggedIn()) { showWheelScreen(); return; }
+  if (child.login_approved && isLoggedIn()) {
+    // If login approved but maybe show scratch card if not yet scratched
+    if (!child.scratch_bonus) { showScreen('scratch-screen'); }
+    else { showWheelScreen(); }
+    return;
+  }
   if (child.login_requested && !child.login_approved) { showWaitingScreen(); return; }
   document.getElementById('child-name').textContent = child.name;
   showScreen('welcome-screen');
@@ -548,7 +702,28 @@ function attemptLogin() {
   if (u !== child.username || p !== child.password) { showToast('❌ Galat username ya password!', 'error'); return; }
   sessionStorage.setItem('eid_session', App.childId);
   showToast('🎉 Login kamiyab!', 'success');
-  setTimeout(showWheelScreen, 700);
+  // Redirect to scratch card first if not scratched
+  if (!child.scratch_bonus) { setTimeout(() => showScreen('scratch-screen'), 700); }
+  else { setTimeout(showWheelScreen, 700); }
+}
+
+// ========== SCRATCH CARD ==========
+function scratchReveal() {
+  const card = document.getElementById('scratch-card');
+  if (card.classList.contains('revealed')) return;
+  card.classList.add('revealed');
+  card.innerText = '🎁 +50 Bonus!';
+  // Update child with scratch bonus
+  DB.updateChild(App.childId, { scratch_bonus: true });
+  // Optionally add extra reward (e.g., extra spin or extra amount)
+  // Here we just show message
+  showToast('✨ Mubarak! Aapko 50 ka bonus mila! (Akhri spin mein add ho ga)', 'success');
+  // Play sound
+  playSound('win');
+}
+
+function goToWheelFromScratch() {
+  showWheelScreen();
 }
 
 // ========== WHEEL ==========
@@ -634,11 +809,18 @@ function updatePips() {
 function spinWheel() {
   if (App.spinning || App.trialsLeft <= 0) return;
   const child = DB.getChild(App.childId);
-  const assigned = child.assigned_reward;
+  let assigned = child.assigned_reward;
+  // If scratch bonus given, add extra 50 to reward if cash
+  if (child.scratch_bonus && child.reward_type === 'cash') {
+    // Increase assigned reward for final reveal? We'll just add to final amount.
+    // We'll handle in revealResult.
+  }
   App.spinning = true;
   App.trialsLeft--;
   updatePips();
   document.getElementById('spin-btn').disabled = true;
+  // Play spin sound
+  playSound('spin');
 
   // Find target segment
   let targetIdx = SEGMENTS.findIndex(s =>
@@ -646,7 +828,6 @@ function spinWheel() {
     assigned.toLowerCase().includes(s.label.replace('🎁 ', '').toLowerCase())
   );
   if (targetIdx < 0) {
-    // For gift, target the gift segment
     if (child.reward_type === 'gift') targetIdx = SEGMENTS.findIndex(s => s.label.includes('🎁'));
     if (targetIdx < 0) targetIdx = 0;
   }
@@ -655,7 +836,6 @@ function spinWheel() {
   const arc = (2 * Math.PI) / n;
   const isLastSpin = App.trialsLeft === 0;
 
-  // Calculate target rotation
   const targetAngle = -Math.PI/2 - (targetIdx * arc + arc/2);
   let spins = isLastSpin ? (6 + Math.random() * 3) : (4 + Math.random() * 3);
   const currentNorm = App.wheelRotation % (2 * Math.PI);
@@ -667,7 +847,6 @@ function spinWheel() {
   const startRot = App.wheelRotation;
 
   function easeOut(t) {
-    // Dramatic slowdown near end for suspense
     const p = t;
     if (p < 0.75) return p * (4/3) * 0.85;
     const p2 = (p - 0.75) / 0.25;
@@ -688,7 +867,7 @@ function spinWheel() {
     } else {
       App.spinning = false;
       if (isLastSpin) {
-        setTimeout(() => revealResult(assigned, child.reward_type, child.name), 800);
+        setTimeout(() => revealResult(assigned, child.reward_type, child.name, child.scratch_bonus), 800);
       } else {
         updatePips();
       }
@@ -698,15 +877,22 @@ function spinWheel() {
   requestAnimationFrame(animate);
 }
 
-function revealResult(reward, type, name) {
+function revealResult(reward, type, name, hasBonus) {
+  // Add bonus if applicable
+  let finalReward = reward;
+  let finalType = type;
+  if (hasBonus && type === 'cash') {
+    finalReward = (parseInt(reward) + 50).toString();
+  }
   DB.updateChild(App.childId, { eidi_claimed: true });
   const isGift = type === 'gift';
   document.getElementById('result-icon').textContent = isGift ? '🎁' : '💰';
-  document.getElementById('result-amount').textContent = isGift ? reward : `Rs. ${reward}`;
+  document.getElementById('result-amount').textContent = isGift ? finalReward : `Rs. ${finalReward}`;
   document.getElementById('result-label').textContent = isGift ? 'Aapka Tohfa!' : 'Eidi Mubarak!';
   document.getElementById('child-result-name').textContent = name;
   showScreen('result-screen');
   launchConfetti();
+  playSound('win');
   sessionStorage.removeItem('eid_session');
 }
 
@@ -721,6 +907,50 @@ function launchConfetti() {
       document.body.appendChild(p);
       setTimeout(() => p.remove(), dur * 1000 + 1000);
     }, i * 25);
+  }
+}
+
+// ========== SOUND EFFECTS (simple beep using Web Audio) ==========
+let audioCtx = null;
+function playSound(type) {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume().then(() => playSound(type));
+      return;
+    }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.type = 'sine';
+    if (type === 'spin') {
+      osc.frequency.value = 440;
+      gain.gain.value = 0.2;
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    } else {
+      osc.frequency.value = 880;
+      gain.gain.value = 0.3;
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    }
+  } catch (e) { /* silent */ }
+}
+
+// ========== SHARE EIDI ==========
+function shareEidi() {
+  const url = getChildURL(App.childId);
+  if (navigator.share) {
+    navigator.share({
+      title: 'Eid Eidi',
+      text: 'Meri Eidi hasil karo!',
+      url: url
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => showToast('📋 Link copy ho gaya!'));
   }
 }
 
@@ -833,9 +1063,9 @@ function renderAllTable() {
 
 function approveLogin(id) { DB.updateChild(id, { login_approved: true }); showToast(`✅ ${id} approved! Password de dein.`); loadAdminDashboard(); }
 function rejectReq(id) { DB.updateChild(id, { login_requested:false, login_approved:false, username:null, password:null, request_time:null }); showToast('❌ Request reject.', 'error'); loadAdminDashboard(); }
-function resetChild(id) { if (!confirm(`${id} reset karna hai?`)) return; DB.updateChild(id, { username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null }); showToast('🔄 Reset ho gaya!'); loadAdminDashboard(); }
-function resetAllClaims() { if (!confirm('Sab claims reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { eidi_claimed:false })); showToast('🔄 Sab claims reset!'); loadAdminDashboard(); }
-function resetAllReqs() { if (!confirm('Sab requests reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { login_requested:false, login_approved:false, username:null, password:null, eidi_claimed:false, request_time:null })); showToast('🔄 Sab reset!'); loadAdminDashboard(); }
+function resetChild(id) { if (!confirm(`${id} reset karna hai?`)) return; DB.updateChild(id, { username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null, scratch_bonus:false }); showToast('🔄 Reset ho gaya!'); loadAdminDashboard(); }
+function resetAllClaims() { if (!confirm('Sab claims reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { eidi_claimed:false, scratch_bonus:false })); showToast('🔄 Sab claims reset!'); loadAdminDashboard(); }
+function resetAllReqs() { if (!confirm('Sab requests reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { login_requested:false, login_approved:false, username:null, password:null, eidi_claimed:false, request_time:null, scratch_bonus:false })); showToast('🔄 Sab reset!'); loadAdminDashboard(); }
 function copyText(t) { navigator.clipboard.writeText(t).then(() => showToast('📋 Copied!')); }
 
 function addChildAdmin() {
@@ -845,7 +1075,7 @@ function addChildAdmin() {
   const type = document.getElementById('anew-type').value;
   if (!id || !name || !reward) { showToast('❌ Sab fields bharein!', 'error'); return; }
   if (DB.getChild(id)) { showToast(`❌ ID "${id}" pehle se hai!`, 'error'); return; }
-  DB.addChild(id, { name, assigned_reward:reward, reward_type:type, username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null });
+  DB.addChild(id, { name, assigned_reward:reward, reward_type:type, username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null, scratch_bonus:false });
   document.getElementById('anew-id').value = '';
   document.getElementById('anew-name').value = '';
   document.getElementById('anew-reward').value = '';
@@ -857,9 +1087,10 @@ function exportData() {
   const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'eid_eidi_data.json'; a.click();
 }
 
-// ========== QR CODES ==========
+// ========== QR CODES (FIXED URL) ==========
 function getChildURL(id) {
-  return window.location.origin + window.location.pathname + '?id=' + id;
+  const base = window.location.origin + window.location.pathname;
+  return base + '?id=' + id;
 }
 
 function showChildQR(id) {
@@ -882,6 +1113,7 @@ function generateAllQRs() {
       <div style="color:rgba(255,248,231,.4);font-size:.68rem;margin:3px 0">${id}</div>
       <div style="color:var(--gold-light);font-size:.8rem">${c.reward_type==='cash'?'Rs.'+c.assigned_reward:'🎁'+c.assigned_reward}</div>
       <div style="margin-top:8px;font-size:.65rem;color:rgba(255,248,231,.3);word-break:break-all">${url}</div>
+      <button class="admin-btn outline" style="margin-top:8px; font-size:0.7rem;" onclick="shareChild('${id}')">📤 Share QR</button>
     `;
     grid.appendChild(card);
     setTimeout(() => {
@@ -903,11 +1135,25 @@ function generateQRCard(id) {
   card.innerHTML = `<div class="qr-wrapper" id="qr-single-${id}"></div>
     <div style="color:var(--gold);font-family:'Cinzel Decorative',serif;font-size:1rem;margin-top:12px">${c.name}</div>
     <div style="color:rgba(255,248,231,.4);font-size:.72rem;margin:4px 0">${id}</div>
-    <div style="color:rgba(255,248,231,.5);font-size:.68rem;word-break:break-all;margin-top:8px">${url}</div>`;
+    <div style="color:rgba(255,248,231,.5);font-size:.68rem;word-break:break-all;margin-top:8px">${url}</div>
+    <button class="admin-btn outline" style="margin-top:8px;" onclick="shareChild('${id}')">📤 Share QR</button>`;
   grid.appendChild(card);
   setTimeout(() => {
     new QRCode(document.getElementById('qr-single-'+id), { text: url, width: 180, height: 180, colorDark: '#004A29', colorLight: '#FFFFFF' });
   }, 100);
+}
+
+function shareChild(id) {
+  const url = getChildURL(id);
+  if (navigator.share) {
+    navigator.share({
+      title: 'Eid Eidi',
+      text: 'Bachay ki Eidi ka link',
+      url: url
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => showToast('📋 Link copy ho gaya!'));
+  }
 }
 
 // ========== TABS ==========
