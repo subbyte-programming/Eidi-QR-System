@@ -5,7 +5,7 @@
       "assigned_reward": "200",
       "reward_type": "cash",
       "username": null,
-      "password": null,
+      "password": 1234567890,
       "login_approved": false,
       "login_requested": false,
       "eidi_claimed": false,
