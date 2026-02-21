@@ -1,7 +1,6 @@
 /* =============================================
    EID EIDI APP - MAIN SCRIPT
-   Pure frontend simulation with localStorage
-   (In production: replace with API calls)
+   Updated & Fixed for Admin Panel Sync
    ============================================= */
 
 // ===== STATE =====
@@ -12,17 +11,18 @@ const App = {
   spinning: false,
   wheelRotation: 0,
   animFrameId: null,
-  db: null, // Will load from localStorage
+  pollInterval: null,
+  db: null,
 };
 
-// ===== DATABASE (localStorage simulation) =====
+// ===== DATABASE (localStorage) =====
 const DB = {
-  key: 'eid_eidi_db',
+  key: 'eid_eidi_db',  // ✅ FIXED: Admin panel ke saath same key
 
   load() {
     const raw = localStorage.getItem(this.key);
     if (raw) return JSON.parse(raw);
-    // Default data
+    // Default data with 5 children
     const defaultData = {
       children: {
         CHILD001: { name: "Ahmed", assigned_reward: "200", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
@@ -39,6 +39,7 @@ const DB = {
 
   save(data) {
     localStorage.setItem(this.key, JSON.stringify(data));
+    console.log('💾 Data saved to localStorage', data);
   },
 
   getChild(id) {
@@ -47,10 +48,18 @@ const DB = {
   },
 
   updateChild(id, updates) {
+    console.log(`📝 Updating ${id} with:`, updates);
     const data = this.load();
-    if (!data.children[id]) return false;
+    if (!data.children[id]) {
+      console.error(`❌ Child ${id} not found!`);
+      return false;
+    }
     data.children[id] = { ...data.children[id], ...updates };
     this.save(data);
+    
+    // Verify save
+    const saved = data.children[id];
+    console.log(`✅ After update:`, saved);
     return true;
   },
 
@@ -130,19 +139,29 @@ function getChildIdFromURL() {
 // ===== INITIALIZATION =====
 function init() {
   if (document.getElementById('app')) {
+    console.log('🚀 App initializing...');
     generateStars();
     createFloatingDecor();
+    
     const childId = getChildIdFromURL();
+    console.log('🔍 Child ID from URL:', childId);
+    
     if (!childId) {
+      console.log('❌ No child ID in URL');
       showInvalidScreen();
       return;
     }
+    
     App.currentChildId = childId;
     const child = DB.getChild(childId);
+    console.log('👶 Child data:', child);
+    
     if (!child) {
+      console.log('❌ Child not found in database');
       showInvalidScreen();
       return;
     }
+    
     App.currentChild = child;
     routeChild();
   }
@@ -164,22 +183,27 @@ function createFloatingDecor() {
 
 function routeChild() {
   const child = App.currentChild;
+  console.log('🔄 Routing child:', child);
 
   if (child.eidi_claimed) {
+    console.log('✅ Child already claimed');
     showAlreadyClaimedScreen();
     return;
   }
 
   if (child.login_approved && isLoggedIn()) {
+    console.log('✅ Child approved and logged in');
     showWheelScreen();
     return;
   }
 
   if (child.login_requested && !child.login_approved) {
+    console.log('⏳ Child has pending request');
     showWaitingScreen();
     return;
   }
 
+  console.log('👋 Showing welcome screen');
   showWelcomeScreen();
 }
 
@@ -204,13 +228,17 @@ function showWelcomeScreen() {
 
 function showWaitingScreen() {
   showScreen('waiting-screen');
-  // Poll for approval every 5 seconds
-  App.pollInterval = setInterval(checkApproval, 5000);
+  // Clear old interval if exists
+  if (App.pollInterval) clearInterval(App.pollInterval);
+  // Poll for approval every 3 seconds
+  App.pollInterval = setInterval(checkApproval, 3000);
 }
 
 function checkApproval() {
+  console.log('🔄 Checking approval status...');
   const child = DB.getChild(App.currentChildId);
   if (child && child.login_approved) {
+    console.log('✅ Child approved!');
     clearInterval(App.pollInterval);
     App.currentChild = child;
     showToast('✅ Admin ne approve kar diya! Login karein.', 'success');
@@ -231,6 +259,7 @@ function showWheelScreen() {
     showAlreadyClaimedScreen();
     return;
   }
+  App.trialsLeft = 3; // Reset trials
   showScreen('wheel-screen');
   initWheel();
   updateTrialPips();
@@ -238,8 +267,13 @@ function showWheelScreen() {
 
 // ===== REQUEST ACCESS =====
 function requestAccess() {
+  console.log('🔑 Requesting access...');
+  
   const child = App.currentChild;
+  console.log('Current child:', child);
+  
   if (child.login_requested) {
+    console.log('⏳ Request already pending');
     showToast('⏳ Aapki request pehle se pending hai!', 'info');
     showWaitingScreen();
     return;
@@ -247,24 +281,33 @@ function requestAccess() {
 
   const username = generateUsername(child.name);
   const password = generatePassword();
+  
+  console.log('Generated credentials:', { username, password });
 
-  DB.updateChild(App.currentChildId, {
+  const updateResult = DB.updateChild(App.currentChildId, {
     login_requested: true,
     username,
     password,
     request_time: new Date().toISOString(),
   });
 
-  App.currentChild = DB.getChild(App.currentChildId);
-  showToast('🔔 Request bhej di gayi! Admin approve karega.', 'success');
-  showWaitingScreen();
+  if (updateResult) {
+    App.currentChild = DB.getChild(App.currentChildId);
+    console.log('✅ Updated child:', App.currentChild);
+    showToast('🔔 Request bhej di gayi! Admin approve karega.', 'success');
+    showWaitingScreen();
+  } else {
+    console.error('❌ Failed to update child');
+    showToast('❌ Request fail hui! Dobara try karein.', 'error');
+  }
 }
 
 // ===== LOGIN =====
 function attemptLogin() {
   const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value.trim();
-  const btn = document.getElementById('login-btn');
+
+  console.log('🔐 Login attempt:', { username, password });
 
   if (!username || !password) {
     showToast('❌ Username aur password darj karein!', 'error');
@@ -272,6 +315,7 @@ function attemptLogin() {
   }
 
   const child = DB.getChild(App.currentChildId);
+  console.log('Stored child:', child);
 
   if (!child || !child.login_approved) {
     showToast('❌ Admin ne abhi approve nahi kiya!', 'error');
@@ -279,6 +323,7 @@ function attemptLogin() {
   }
 
   if (username !== child.username || password !== child.password) {
+    console.log('❌ Credentials mismatch');
     showToast('❌ Galat username ya password!', 'error');
     return;
   }
@@ -302,6 +347,7 @@ const WHEEL_SEGMENTS = [
 
 function initWheel() {
   const canvas = document.getElementById('wheel-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   App.wheelRotation = 0;
   drawWheel(ctx, canvas.width, App.wheelRotation);
@@ -404,13 +450,11 @@ function spinWheel() {
   const startTime = performance.now();
   const startRotation = App.wheelRotation;
 
-  // Tension build-up sound simulation via CSS
+  // Tension build-up
   canvas.style.filter = 'drop-shadow(0 0 20px rgba(212,175,55,0.8))';
 
   function easeOutCubic(t) {
-    // Suspense effect: fast start, slow middle, very slow end
     if (t < 0.7) return t * 1.43;
-    // Slow down dramatically
     const t2 = (t - 0.7) / 0.3;
     return 0.7 * 1.43 + (1 - Math.pow(1 - t2, 4)) * (1 - 0.7 * 1.43);
   }
@@ -431,6 +475,7 @@ function spinWheel() {
 
       if (App.trialsLeft > 0) {
         document.getElementById('spin-btn').disabled = false;
+        updateTrialPips();
       } else {
         // Last spin — reveal result
         setTimeout(() => revealResult(assigned, child.reward_type), 800);
@@ -495,6 +540,11 @@ function launchConfetti() {
     }, i * 30);
   }
 }
+
+// Expose functions globally for HTML onclick
+window.requestAccess = requestAccess;
+window.attemptLogin = attemptLogin;
+window.spinWheel = spinWheel;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', init);
