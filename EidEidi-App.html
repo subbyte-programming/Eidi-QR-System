@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>🌙 Eid Eidi – Complete App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+/* =============================================
+   EID EIDI APP – COMPLETE SELF-CONTAINED
+   ============================================= */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F5D76E;
+  --gold-dark: #A67C00;
+  --emerald: #006B3C;
+  --emerald-light: #00A86B;
+  --emerald-dark: #004A29;
+  --cream: #FFF8E7;
+  --dark: #1A0A00;
+  --white: #FFFFFF;
+  --danger: #C0392B;
+  --shadow-gold: 0 0 30px rgba(212,175,55,0.4);
+  --shadow-deep: 0 20px 60px rgba(0,0,0,0.5);
+  --border-gold: 2px solid rgba(212,175,55,0.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--emerald-dark);min-height:100vh;overflow-x:hidden;color:var(--cream)}
+.bg-pattern{position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(212,175,55,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(0,168,107,.12) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(212,175,55,.03) 40px,rgba(212,175,55,.03) 41px);pointer-events:none;z-index:0}
+.stars-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.star{position:absolute;width:3px;height:3px;background:var(--gold-light);border-radius:50%;animation:twinkle 3s infinite}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+.floating-decor{position:fixed;pointer-events:none;z-index:0;font-size:2rem;opacity:.12;animation:floatDecor 8s ease-in-out infinite}
+.floating-decor:nth-child(1){top:10%;left:5%;animation-delay:0s;font-size:3rem}
+.floating-decor:nth-child(2){top:30%;right:8%;animation-delay:2s;font-size:2.5rem}
+.floating-decor:nth-child(3){bottom:20%;left:10%;animation-delay:4s}
+.floating-decor:nth-child(4){top:60%;right:5%;animation-delay:1s;font-size:3.5rem}
+.floating-decor:nth-child(5){bottom:10%;right:20%;animation-delay:3s}
+.floating-decor:nth-child(6){top:80%;left:30%;animation-delay:5s;font-size:1.5rem}
+@keyframes floatDecor{0%,100%{transform:translateY(0) rotate(0deg);opacity:.12}50%{transform:translateY(-20px) rotate(10deg);opacity:.2}}
+#app{position:relative;z-index:1;min-height:100vh}
+.screen{display:none;min-height:100vh;padding:20px;justify-content:center;align-items:center;flex-direction:column}
+.screen.active{display:flex}
+.card{background:linear-gradient(135deg,rgba(0,75,41,.95) 0%,rgba(0,30,15,.98) 100%);border:var(--border-gold);border-radius:24px;padding:40px;width:100%;max-width:460px;box-shadow:var(--shadow-deep),var(--shadow-gold);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
+.eid-logo{text-align:center;margin-bottom:30px}
+.moon-icon{font-size:4rem;display:block;animation:moonGlow 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}
+@keyframes moonGlow{0%,100%{transform:scale(1) rotate(-5deg);filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}50%{transform:scale(1.1) rotate(5deg);filter:drop-shadow(0 0 40px rgba(245,215,110,1))}}
+.eid-logo h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold);text-shadow:0 0 20px rgba(212,175,55,.6);letter-spacing:2px;margin-top:10px}
+.eid-logo .subtitle{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold-light);opacity:.8;margin-top:4px}
+.ornament{text-align:center;color:var(--gold);font-size:1.2rem;letter-spacing:8px;margin:16px 0;opacity:.7}
+.child-name-display{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:16px 24px;text-align:center;margin:20px 0}
+.child-name-display .greeting{font-size:.85rem;color:rgba(255,248,231,.6);text-transform:uppercase;letter-spacing:2px}
+.child-name-display .name{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--gold);text-shadow:0 0 15px rgba(212,175,55,.5)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 32px;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s ease;text-transform:uppercase;letter-spacing:1.5px;position:relative;overflow:hidden}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:var(--dark);box-shadow:0 4px 20px rgba(212,175,55,.5)}
+.btn-gold:hover{box-shadow:0 8px 30px rgba(212,175,55,.7);transform:translateY(-2px)}
+.btn-emerald{background:linear-gradient(135deg,var(--emerald-dark),var(--emerald),var(--emerald-light));color:var(--white);box-shadow:0 4px 20px rgba(0,107,60,.5);border:1px solid rgba(212,175,55,.3)}
+.btn-outline{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+.btn-outline:hover{background:rgba(212,175,55,.1)}
+.btn-danger{background:linear-gradient(135deg,#8b0000,var(--danger));color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:8px;font-weight:600}
+.form-group input{width:100%;padding:14px 20px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.3);border-radius:12px;color:var(--cream);font-family:'Poppins',sans-serif;font-size:1rem;transition:all .3s;outline:none}
+.form-group input:focus{border-color:var(--gold);background:rgba(212,175,55,.07);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.form-group input::placeholder{color:rgba(255,248,231,.3)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:50px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.badge-pending{background:rgba(255,165,0,.15);border:1px solid rgba(255,165,0,.4);color:#ffa500}
+.badge-approved{background:rgba(0,168,107,.15);border:1px solid rgba(0,168,107,.4);color:var(--emerald-light)}
+.badge-claimed{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.4);color:var(--gold)}
+.hourglass-spin{font-size:4rem;display:inline-block;animation:hourglassSpin 2s ease-in-out infinite;filter:drop-shadow(0 0 15px rgba(212,175,55,.6))}
+@keyframes hourglassSpin{0%,100%{transform:rotate(0deg)}45%{transform:rotate(0deg)}55%{transform:rotate(180deg)}}
+.pulse-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.pulse-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;animation:pulseDot 1.4s ease-in-out infinite}
+.pulse-dot:nth-child(2){animation-delay:.2s}
+.pulse-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulseDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1.2);opacity:1}}
+.trials-counter{display:flex;justify-content:center;gap:10px;margin:16px 0}
+.trial-pip{width:40px;height:8px;background:rgba(212,175,55,.2);border-radius:4px;border:1px solid rgba(212,175,55,.3);transition:all .5s}
+.trial-pip.used{background:linear-gradient(90deg,var(--gold-dark),var(--gold));box-shadow:0 0 10px rgba(212,175,55,.5)}
+.wheel-container{position:relative;width:300px;height:300px;margin:20px auto}
+.wheel-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2rem;z-index:10;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:pointerBob 1s ease-in-out infinite}
+@keyframes pointerBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
+#wheel-canvas{border-radius:50%;box-shadow:0 0 40px rgba(212,175,55,.4),var(--shadow-deep)}
+.reward-display{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(245,215,110,.05));border:2px solid var(--gold);border-radius:20px;padding:30px;margin:24px 0;position:relative}
+.reward-amount{font-family:'Cinzel Decorative',serif;font-size:3rem;color:var(--gold);text-shadow:0 0 30px rgba(212,175,55,.8);display:block}
+.reward-label{font-size:.85rem;color:rgba(255,248,231,.6);text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+.claim-icon{font-size:3rem;display:block;margin-bottom:10px;animation:celebrateSpin 1s ease-out}
+@keyframes celebrateSpin{0%{transform:scale(0) rotate(-180deg);opacity:0}70%{transform:scale(1.2) rotate(10deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+.confetti-piece{position:fixed;pointer-events:none;z-index:9999;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+#toast{position:fixed;top:20px;right:20px;background:linear-gradient(135deg,var(--emerald-dark),var(--emerald));border:1px solid var(--gold);border-radius:12px;padding:16px 24px;color:var(--cream);font-size:.9rem;box-shadow:var(--shadow-deep);z-index:9999;transform:translateX(120%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:320px}
+#toast.show{transform:translateX(0)}
+#toast.error{background:linear-gradient(135deg,#3d0000,var(--danger));border-color:var(--danger)}
+.alert-box{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);border-radius:12px;padding:16px 20px;font-size:.88rem;color:rgba(255,248,231,.8);line-height:1.6;margin:16px 0}
+.alert-box.info{border-color:rgba(0,168,107,.3);background:rgba(0,168,107,.06)}
+.alert-box.warning{border-color:rgba(255,165,0,.3);background:rgba(255,165,0,.06);color:#ffa500}
+.alert-box.success{border-color:rgba(0,168,107,.4);background:rgba(0,168,107,.1);color:var(--emerald-light)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease forwards}
+.page-eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:4px;color:var(--gold-light);opacity:.6;text-align:center;margin-bottom:4px}
+
+/* ===== ADMIN OVERLAY ===== */
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:2000;display:none;overflow-y:auto}
+.admin-overlay.open{display:block}
+.admin-overlay .admin-container{max-width:1100px;margin:0 auto;padding:24px}
+.admin-header{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(0,107,60,.1));border:var(--border-gold);border-radius:20px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.admin-header h1{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:var(--gold)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:linear-gradient(135deg,rgba(0,75,41,.8),rgba(0,30,15,.9));border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:20px;text-align:center;transition:transform .3s,box-shadow .3s}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(212,175,55,.2);border-color:rgba(212,175,55,.4)}
+.stat-icon{font-size:1.8rem;margin-bottom:8px}
+.stat-number{font-family:'Cinzel Decorative',serif;font-size:2rem;color:var(--gold)}
+.stat-label{font-size:.72rem;color:rgba(255,248,231,.5);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
+.admin-section{background:linear-gradient(135deg,rgba(0,50,28,.9),rgba(0,20,10,.95));border:1px solid rgba(212,175,55,.2);border-radius:20px;padding:24px;margin-bottom:20px}
+.admin-section h2{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.table-wrap{overflow-x:auto;border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+thead tr{background:rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.2)}
+th{padding:12px 14px;text-align:left;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:2px;white-space:nowrap}
+td{padding:12px 14px;color:rgba(255,248,231,.8);border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(212,175,55,.04)}
+.credentials-box{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:6px 10px;font-family:monospace;font-size:.78rem;color:var(--gold-light)}
+.tab-bar{display:flex;gap:4px;margin-bottom:20px;background:rgba(0,0,0,.3);border-radius:12px;padding:5px;border:1px solid rgba(212,175,55,.15);flex-wrap:wrap}
+.tab-btn{flex:1;min-width:80px;padding:9px 6px;background:transparent;border:none;border-radius:8px;color:rgba(255,248,231,.5);font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .3s;text-align:center}
+.tab-btn.active{background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.1));color:var(--gold);border:1px solid rgba(212,175,55,.3)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.no-data{text-align:center;padding:32px;color:rgba(255,248,231,.3);font-size:.88rem}
+.btn-sm{padding:8px 18px!important;font-size:.78rem!important;border-radius:8px!important;letter-spacing:.5px!important}
+.btn-xs{padding:5px 12px!important;font-size:.72rem!important;border-radius:6px!important}
+.admin-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 18px;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:.5px}
+.admin-btn.gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--dark)}
+.admin-btn.outline{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+.admin-btn.danger{background:linear-gradient(135deg,#8b0000,var(--danger));color:#fff}
+.admin-btn:hover{opacity:.9;transform:translateY(-1px)}
+.admin-btn:active{transform:scale(.97)}
+.adm-input{padding:10px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.3);border-radius:10px;color:var(--cream);font-family:'Poppins',sans-serif;font-size:.88rem;outline:none;transition:all .3s}
+.adm-input:focus{border-color:var(--gold);background:rgba(212,175,55,.07)}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.qr-card{background:rgba(0,50,28,.8);border:1px solid rgba(212,175,55,.3);border-radius:16px;padding:18px;text-align:center}
+.qr-wrapper{display:flex;justify-content:center;align-items:center;padding:12px;background:#fff;border-radius:10px;margin:10px auto;width:fit-content}
+.notification-dot{background:var(--danger);color:#fff;border-radius:50px;padding:3px 12px;font-size:.75rem;animation:badgePulse 1s infinite}
+@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@media(max-width:600px){.card{padding:24px 18px;border-radius:18px}.wheel-container{width:260px;height:260px}.reward-amount{font-size:2.2rem}.admin-header{flex-direction:column;text-align:center}}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.4);border-radius:3px}
+  </style>
+</head>
+<body>
+
+<!-- Background Effects -->
+<div class="bg-pattern"></div>
+
+<div id="app">
+
+  <!-- ============ WELCOME SCREEN ============ -->
+  <div id="welcome-screen" class="screen active">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">☪️</span>
+        <div class="page-eyebrow">Eid ul Fitr 1446</div>
+        <h1>Eid Mubarak!</h1>
+        <div class="subtitle">عید مبارک ہو</div>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+      <div class="child-name-display">
+        <div class="greeting">Khush Amdeed</div>
+        <div class="name" id="child-name">Loading...</div>
+      </div>
+      <div class="alert-box">
+        🔐 Aapki Eidi ek <strong>secret spin wheel</strong> ke peechay chhupi hai! Admin se approval ke baad aap spin kar sakte hain.
+      </div>
+      <button class="btn btn-gold" onclick="requestAccess()">🔑 Login Access Request Karein</button>
+      <button class="btn btn-outline" style="margin-top:10px; font-size:.75rem; padding:10px" onclick="openAdminPanel()">🛡️ Admin Panel</button>
+    </div>
+  </div>
+
+  <!-- ============ WAITING SCREEN ============ -->
+  <div id="waiting-screen" class="screen">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">🌙</span>
+        <h1>Intezaar Karein</h1>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+      <div style="text-align:center;margin:24px 0">
+        <div class="hourglass-spin">⏳</div>
+        <div class="pulse-dots">
+          <div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div>
+        </div>
+      </div>
+      <div class="alert-box warning">⏳ Aapki request bhej di gayi! Admin approve karega aur password de ga.</div>
+      <div class="alert-box info">💡 Admin se <strong>username aur password</strong> maangein.</div>
+      <button class="btn btn-outline" style="margin-top:16px" onclick="showScreen('login-screen')">🔓 Password Mil Gaya – Login</button>
+    </div>
+  </div>
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div id="login-screen" class="screen">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">🔐</span>
+        <h1>Secure Login</h1>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+      <div class="alert-box success">✅ Admin se password lein aur login karein.</div>
+      <div class="form-group" style="margin-top:18px">
+        <label>Username</label>
+        <input type="text" id="login-username" placeholder="Admin ka diya hua username" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Admin ka diya hua password" autocomplete="current-password" onkeydown="if(event.key==='Enter')attemptLogin()">
+      </div>
+      <button class="btn btn-gold" onclick="attemptLogin()">🎡 Login & Eidi Unlock!</button>
+      <button class="btn btn-outline" style="margin-top:12px" onclick="showScreen('waiting-screen')">← Wapas</button>
+    </div>
+  </div>
+
+  <!-- ============ WHEEL SCREEN ============ -->
+  <div id="wheel-screen" class="screen">
+    <div class="card fade-in" style="text-align:center;max-width:520px">
+      <div class="eid-logo">
+        <span class="moon-icon">🎡</span>
+        <h1>Eidi Wheel!</h1>
+        <div class="subtitle">Apni Eidi Spin Karein</div>
+      </div>
+      <div class="alert-box" style="margin-bottom:12px">🎯 Sirf <strong>3 spins!</strong> Akhri spin par asli Eidi reveal hogi.</div>
+      <div class="trials-counter">
+        <div class="trial-pip"></div><div class="trial-pip"></div><div class="trial-pip"></div>
+      </div>
+      <div class="wheel-container">
+        <div class="wheel-pointer">▼</div>
+        <canvas id="wheel-canvas" width="300" height="300"></canvas>
+      </div>
+      <button class="btn btn-gold" id="spin-btn" onclick="spinWheel()" style="margin-top:20px">🎡 Spin Karein! (3 baqi)</button>
+    </div>
+  </div>
+
+  <!-- ============ RESULT SCREEN ============ -->
+  <div id="result-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <div class="eid-logo">
+        <span class="moon-icon">🎉</span>
+        <h1>Mubarak Ho!</h1>
+        <div class="subtitle">مبارک ہو</div>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+      <div class="child-name-display">
+        <div class="greeting">Eidi Hasil Karne Wale</div>
+        <div class="name" id="child-result-name"></div>
+      </div>
+      <div class="reward-display">
+        <span class="claim-icon" id="result-icon">💰</span>
+        <span class="reward-amount" id="result-amount">200</span>
+        <div class="reward-label" id="result-label">Eidi Mubarak!</div>
+      </div>
+      <div class="alert-box success">✅ Eidi claim ho gayi! Admin se tuhfa hasil karein. Eid Mubarak! 🌙⭐</div>
+      <div class="alert-box warning">🔒 Yeh Eidi sirf ek baar claim hoti hai.</div>
+    </div>
+  </div>
+
+  <!-- ============ ALREADY CLAIMED ============ -->
+  <div id="claimed-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <span style="font-size:5rem;display:block;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(212,175,55,.6))">✅</span>
+      <h2 style="font-family:'Cinzel Decorative',serif;color:var(--gold);margin-bottom:12px">Eidi Claim Ho Chuki!</h2>
+      <div class="alert-box warning">🔒 Aap pehle hi apni Eidi claim kar chuke hain. Har bachay ko sirf ek baar Eidi milti hai! Eid Mubarak! ☪️</div>
+    </div>
+  </div>
+
+  <!-- ============ INVALID ============ -->
+  <div id="invalid-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <span style="font-size:4rem;display:block;margin-bottom:16px">❌</span>
+      <h2 style="font-family:'Cinzel Decorative',serif;color:var(--danger);margin-bottom:12px">Invalid QR Code</h2>
+      <div class="alert-box warning">⚠️ Valid QR code nahi hai. Asli envelope scan karein ya admin se rabita karein.</div>
+      <button class="btn btn-gold" style="margin-top:16px" onclick="openAdminPanel()">🛡️ Admin Panel</button>
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<!-- ============ ADMIN OVERLAY ============ -->
+<div id="admin-overlay" class="admin-overlay">
+  <!-- Admin Login -->
+  <div id="admin-login-panel" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
+    <div class="card" style="max-width:380px">
+      <div class="eid-logo">
+        <span class="moon-icon">🛡️</span>
+        <h1>Admin Panel</h1>
+        <div class="subtitle">Eid Eidi Control</div>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+      <div class="form-group" style="margin-top:18px">
+        <label>Admin Password</label>
+        <input type="password" id="admin-pass" class="adm-input" style="width:100%" placeholder="EidAdmin2025!" onkeydown="if(event.key==='Enter')adminLogin()">
+      </div>
+      <button class="btn btn-gold" onclick="adminLogin()">🔐 Admin Login</button>
+      <button class="btn btn-outline" style="margin-top:10px" onclick="closeAdminPanel()">✕ Band Karein</button>
+      <p style="text-align:center;margin-top:14px;font-size:.72rem;color:rgba(255,248,231,.3)">Default: EidAdmin2025!</p>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="admin-dashboard" style="display:none">
+    <div class="admin-container">
+      <div class="admin-header">
+        <div>
+          <h1>☪️ Eid Eidi – Admin Dashboard</h1>
+          <p style="font-size:.78rem;color:rgba(255,248,231,.4);margin-top:4px">Tamam Eidi requests yahan manage karein</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span id="notification-dot" style="display:none" class="notification-dot">🔔 New Request</span>
+          <button class="admin-btn outline" onclick="refreshAdmin()">🔄 Refresh</button>
+          <button class="admin-btn danger" onclick="adminLogout()">Exit</button>
+          <button class="admin-btn outline" onclick="closeAdminPanel()">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" id="astats-grid">
+        <div class="stat-card"><div class="stat-icon">👶</div><div class="stat-number" id="astat-total">0</div><div class="stat-label">Kul Bachay</div></div>
+        <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-number" id="astat-pending">0</div><div class="stat-label">Pending</div></div>
+        <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-number" id="astat-approved">0</div><div class="stat-label">Approved</div></div>
+        <div class="stat-card"><div class="stat-icon">🎉</div><div class="stat-number" id="astat-claimed">0</div><div class="stat-label">Claimed</div></div>
+        <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-number" id="astat-rs">0</div><div class="stat-label">Rs. Distribute</div></div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="apending" onclick="switchAdminTab(this,'apending')">⏳ Pending</button>
+        <button class="tab-btn" data-tab="aall" onclick="switchAdminTab(this,'aall')">👶 Sab Bachay</button>
+        <button class="tab-btn" data-tab="aadd" onclick="switchAdminTab(this,'aadd')">➕ Add Bacha</button>
+        <button class="tab-btn" data-tab="aqr" onclick="switchAdminTab(this,'aqr')">📱 QR Codes</button>
+      </div>
+
+      <!-- TAB: Pending -->
+      <div id="apending" class="tab-content active">
+        <div class="admin-section">
+          <h2>⏳ Pending Login Requests <span id="apending-count" class="notification-dot" style="display:none;font-size:.72rem">0</span></h2>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Naam</th><th>Reward</th><th>Username</th><th>Password</th><th>Waqt</th><th>Action</th></tr></thead>
+          <tbody id="apending-tbody"><tr><td colspan="7" class="no-data">Koi pending request nahi</td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- TAB: All -->
+      <div id="aall" class="tab-content">
+        <div class="admin-section">
+          <h2>👶 Tamam Bachay</h2>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Naam</th><th>Reward</th><th>Status</th><th>Credentials</th><th>Actions</th></tr></thead>
+          <tbody id="aall-tbody"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- TAB: Add -->
+      <div id="aadd" class="tab-content">
+        <div class="admin-section">
+          <h2>➕ Naya Bacha Add Karein</h2>
+          <div style="max-width:560px;display:grid;gap:14px">
+            <div><label style="font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:6px">Child ID</label>
+            <input id="anew-id" class="adm-input" style="width:100%" placeholder="CHILD006"></div>
+            <div><label style="font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:6px">Naam</label>
+            <input id="anew-name" class="adm-input" style="width:100%" placeholder="Bachay ka naam"></div>
+            <div><label style="font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:6px">Reward Type</label>
+            <select id="anew-type" class="adm-input" style="width:100%;background:rgba(0,20,10,.9)"><option value="cash">💰 Cash (Rs.)</option><option value="gift">🎁 Gift</option></select></div>
+            <div><label style="font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:6px">Reward Amount</label>
+            <input id="anew-reward" class="adm-input" style="width:100%" placeholder="200 ya Gift Box"></div>
+            <button class="admin-btn gold" onclick="addChildAdmin()">➕ Add Karein</button>
+          </div>
+          <hr style="border-color:rgba(212,175,55,.15);margin:28px 0">
+          <h2>🔧 Admin Tools</h2>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <button class="admin-btn outline" onclick="exportData()">📥 Export JSON</button>
+            <button class="admin-btn danger" onclick="resetAllClaims()">⚠️ Reset Sab Claims</button>
+            <button class="admin-btn danger" onclick="resetAllReqs()">🔄 Reset Sab Requests</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: QR -->
+      <div id="aqr" class="tab-content">
+        <div class="admin-section">
+          <h2>📱 QR Codes</h2>
+          <p style="color:rgba(255,248,231,.6);font-size:.85rem;margin-bottom:16px">Har bachay ka unique QR code generate karein aur envelope mein daalein.</p>
+          <div style="margin-bottom:20px">
+            <button class="admin-btn gold" onclick="generateAllQRs()">🖨️ Sab QR Generate Karein</button>
+          </div>
+          <div id="qr-grid" class="qr-grid"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- admin-overlay -->
+
+<div id="toast"></div>
+
+<script>
+// ===================================================
+//  EID EIDI – COMPLETE APPLICATION LOGIC
+// ===================================================
+
+// ========== DATABASE (localStorage) ==========
+const DB = {
+  key: 'eid_eidi_db_v2',
+  defaultData() {
+    return {
+      children: {
+        CHILD001: { name: "Ahmed", assigned_reward: "200", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+        CHILD002: { name: "Fatima", assigned_reward: "500", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+        CHILD003: { name: "Zain", assigned_reward: "Gift Box", reward_type: "gift", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+        CHILD004: { name: "Ayesha", assigned_reward: "100", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+        CHILD005: { name: "Omar", assigned_reward: "50", reward_type: "cash", username: null, password: null, login_approved: false, login_requested: false, eidi_claimed: false, request_time: null },
+      },
+      admin: { password: "EidAdmin2025!" }
+    };
+  },
+  load() { const r = localStorage.getItem(this.key); return r ? JSON.parse(r) : this.defaultData(); },
+  save(d) { localStorage.setItem(this.key, JSON.stringify(d)); },
+  getChild(id) { return this.load().children[id] || null; },
+  updateChild(id, updates) { const d = this.load(); if (!d.children[id]) return; d.children[id] = { ...d.children[id], ...updates }; this.save(d); },
+  addChild(id, data) { const d = this.load(); d.children[id] = data; this.save(d); },
+  getAllChildren() { return this.load().children; },
+  getAdminPass() { return this.load().admin?.password || 'EidAdmin2025!'; }
+};
+
+// Ensure default data exists
+if (!localStorage.getItem(DB.key)) { DB.save(DB.defaultData()); }
+
+// ========== APP STATE ==========
+const App = {
+  childId: null,
+  child: null,
+  trialsLeft: 3,
+  spinning: false,
+  wheelRotation: 0,
+  pollTimer: null,
+  adminAuthed: false,
+  adminPollTimer: null,
+};
+
+// ========== HELPERS ==========
+function genUsername(name) {
+  const clean = name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '');
+  return clean + (Math.floor(Math.random() * 900) + 100);
+}
+function genPassword() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#!';
+  return Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.className = `toast ${type==='error'?'error':''}`;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+function showScreen(id) {
+  document.querySelectorAll('#app .screen').forEach(s => s.classList.remove('active'));
+  const s = document.getElementById(id);
+  if (s) { s.classList.add('active'); }
+}
+function formatTime(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' ' + d.toLocaleDateString();
+}
+function isLoggedIn() { return sessionStorage.getItem('eid_session') === App.childId; }
+
+// ========== STARS ==========
+function initStars() {
+  const c = document.createElement('div');
+  c.className = 'stars-container';
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div'); s.className = 'star';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px`;
+    c.appendChild(s);
+  }
+  document.body.appendChild(c);
+  ['☪️','🌙','⭐','🪔','✨','🌟'].forEach((e,i) => {
+    const d = document.createElement('div'); d.className = 'floating-decor'; d.textContent = e;
+    document.body.appendChild(d);
+  });
+}
+
+// ========== ROUTING ==========
+function getIdFromURL() { return new URLSearchParams(window.location.search).get('id'); }
+
+function init() {
+  initStars();
+  const id = getIdFromURL();
+  if (!id) { showScreen('invalid-screen'); return; }
+  App.childId = id;
+  const child = DB.getChild(id);
+  if (!child) { showScreen('invalid-screen'); return; }
+  App.child = child;
+  route();
+}
+
+function route() {
+  const child = DB.getChild(App.childId);
+  App.child = child;
+  if (child.eidi_claimed) { showScreen('claimed-screen'); return; }
+  if (child.login_approved && isLoggedIn()) { showWheelScreen(); return; }
+  if (child.login_requested && !child.login_approved) { showWaitingScreen(); return; }
+  document.getElementById('child-name').textContent = child.name;
+  showScreen('welcome-screen');
+}
+
+// ========== ACTIONS ==========
+function requestAccess() {
+  const child = DB.getChild(App.childId);
+  if (child.login_requested) { showToast('⏳ Request pehle se pending hai!'); showWaitingScreen(); return; }
+  const username = genUsername(child.name);
+  const password = genPassword();
+  DB.updateChild(App.childId, { login_requested: true, username, password, request_time: new Date().toISOString() });
+  showToast('🔔 Request bhej di! Admin approve karega.', 'success');
+  showWaitingScreen();
+}
+
+function showWaitingScreen() {
+  showScreen('waiting-screen');
+  clearInterval(App.pollTimer);
+  App.pollTimer = setInterval(() => {
+    const child = DB.getChild(App.childId);
+    if (child && child.login_approved) {
+      clearInterval(App.pollTimer);
+      showToast('✅ Admin ne approve kar diya!', 'success');
+      document.getElementById('login-username').value = child.username || '';
+      showScreen('login-screen');
+    }
+  }, 3000);
+}
+
+function attemptLogin() {
+  const u = document.getElementById('login-username').value.trim();
+  const p = document.getElementById('login-password').value.trim();
+  if (!u || !p) { showToast('❌ Username aur password darj karein!', 'error'); return; }
+  const child = DB.getChild(App.childId);
+  if (!child.login_approved) { showToast('❌ Admin ne abhi approve nahi kiya!', 'error'); return; }
+  if (u !== child.username || p !== child.password) { showToast('❌ Galat username ya password!', 'error'); return; }
+  sessionStorage.setItem('eid_session', App.childId);
+  showToast('🎉 Login kamiyab!', 'success');
+  setTimeout(showWheelScreen, 700);
+}
+
+// ========== WHEEL ==========
+const SEGMENTS = [
+  { label:'50', color:'#006B3C' },
+  { label:'100', color:'#D4AF37' },
+  { label:'200', color:'#004A29' },
+  { label:'500', color:'#A67C00' },
+  { label:'🎁 Gift', color:'#005C33' },
+  { label:'1000', color:'#C5A028' },
+  { label:'50', color:'#004A29' },
+  { label:'100', color:'#A67C00' },
+];
+
+function showWheelScreen() {
+  const child = DB.getChild(App.childId);
+  if (child.eidi_claimed) { showScreen('claimed-screen'); return; }
+  App.trialsLeft = 3;
+  App.wheelRotation = 0;
+  showScreen('wheel-screen');
+  requestAnimationFrame(() => {
+    drawWheel(App.wheelRotation);
+    updatePips();
+    document.getElementById('spin-btn').disabled = false;
+    document.getElementById('spin-btn').innerHTML = '🎡 Spin Karein! (3 baqi)';
+  });
+}
+
+function drawWheel(rotation) {
+  const canvas = document.getElementById('wheel-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = canvas.width;
+  const cx = size / 2, cy = size / 2;
+  const r = size / 2 - 4;
+  const n = SEGMENTS.length;
+  const arc = (2 * Math.PI) / n;
+  ctx.clearRect(0, 0, size, size);
+  // Glow
+  const g = ctx.createRadialGradient(cx, cy, r-10, cx, cy, r+4);
+  g.addColorStop(0, 'rgba(212,175,55,0)');
+  g.addColorStop(1, 'rgba(212,175,55,0.7)');
+  ctx.beginPath(); ctx.arc(cx, cy, r+4, 0, 2*Math.PI);
+  ctx.fillStyle = g; ctx.fill();
+  // Segments
+  for (let i = 0; i < n; i++) {
+    const sa = rotation + i * arc, ea = sa + arc;
+    ctx.beginPath(); ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, sa, ea); ctx.closePath();
+    ctx.fillStyle = SEGMENTS[i].color; ctx.fill();
+    ctx.strokeStyle = 'rgba(212,175,55,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(sa + arc/2);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#FFF8E7';
+    ctx.font = `bold ${size*0.055}px Poppins`;
+    ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 4;
+    ctx.fillText(SEGMENTS[i].label, r-12, 5); ctx.restore();
+  }
+  // Center
+  const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 28);
+  cg.addColorStop(0, '#F5D76E'); cg.addColorStop(1, '#A67C00');
+  ctx.beginPath(); ctx.arc(cx, cy, 28, 0, 2*Math.PI);
+  ctx.fillStyle = cg; ctx.fill();
+  ctx.strokeStyle = '#FFF8E7'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.font = `${size*0.085}px serif`;
+  ctx.textAlign = 'center'; ctx.shadowBlur = 0;
+  ctx.fillText('☪️', cx, cy+8);
+}
+
+function updatePips() {
+  document.querySelectorAll('.trial-pip').forEach((p, i) => {
+    p.classList.toggle('used', i < (3 - App.trialsLeft));
+  });
+  const btn = document.getElementById('spin-btn');
+  if (App.trialsLeft > 0 && !App.spinning) {
+    btn.disabled = false;
+    btn.innerHTML = `🎡 Spin Karein! (${App.trialsLeft} baqi)`;
+  } else if (App.trialsLeft === 0) {
+    btn.disabled = true;
+    btn.innerHTML = 'Akhri Spin Ho Gayi!';
+  }
+}
+
+function spinWheel() {
+  if (App.spinning || App.trialsLeft <= 0) return;
+  const child = DB.getChild(App.childId);
+  const assigned = child.assigned_reward;
+  App.spinning = true;
+  App.trialsLeft--;
+  updatePips();
+  document.getElementById('spin-btn').disabled = true;
+
+  // Find target segment
+  let targetIdx = SEGMENTS.findIndex(s =>
+    s.label.replace('🎁 ', '').toLowerCase() === assigned.toLowerCase() ||
+    assigned.toLowerCase().includes(s.label.replace('🎁 ', '').toLowerCase())
+  );
+  if (targetIdx < 0) {
+    // For gift, target the gift segment
+    if (child.reward_type === 'gift') targetIdx = SEGMENTS.findIndex(s => s.label.includes('🎁'));
+    if (targetIdx < 0) targetIdx = 0;
+  }
+
+  const n = SEGMENTS.length;
+  const arc = (2 * Math.PI) / n;
+  const isLastSpin = App.trialsLeft === 0;
+
+  // Calculate target rotation
+  const targetAngle = -Math.PI/2 - (targetIdx * arc + arc/2);
+  let spins = isLastSpin ? (6 + Math.random() * 3) : (4 + Math.random() * 3);
+  const currentNorm = App.wheelRotation % (2 * Math.PI);
+  const diff = ((targetAngle - currentNorm) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+  const finalRotation = App.wheelRotation + spins * 2 * Math.PI + diff;
+
+  const duration = isLastSpin ? 6500 : 3500;
+  const startTime = performance.now();
+  const startRot = App.wheelRotation;
+
+  function easeOut(t) {
+    // Dramatic slowdown near end for suspense
+    const p = t;
+    if (p < 0.75) return p * (4/3) * 0.85;
+    const p2 = (p - 0.75) / 0.25;
+    return 0.85 + 0.15 * (1 - Math.pow(1 - p2, 5));
+  }
+
+  const canvas = document.getElementById('wheel-canvas');
+
+  function animate(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeOut(progress);
+    App.wheelRotation = startRot + (finalRotation - startRot) * eased;
+    drawWheel(App.wheelRotation);
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      App.spinning = false;
+      if (isLastSpin) {
+        setTimeout(() => revealResult(assigned, child.reward_type, child.name), 800);
+      } else {
+        updatePips();
+      }
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function revealResult(reward, type, name) {
+  DB.updateChild(App.childId, { eidi_claimed: true });
+  const isGift = type === 'gift';
+  document.getElementById('result-icon').textContent = isGift ? '🎁' : '💰';
+  document.getElementById('result-amount').textContent = isGift ? reward : `Rs. ${reward}`;
+  document.getElementById('result-label').textContent = isGift ? 'Aapka Tohfa!' : 'Eidi Mubarak!';
+  document.getElementById('child-result-name').textContent = name;
+  showScreen('result-screen');
+  launchConfetti();
+  sessionStorage.removeItem('eid_session');
+}
+
+function launchConfetti() {
+  const colors = ['#D4AF37','#F5D76E','#006B3C','#00A86B','#FFF8E7','#A67C00','#FF6B6B','#FFD700'];
+  for (let i = 0; i < 120; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      const dur = 2 + Math.random() * 3;
+      p.style.cssText = `left:${Math.random()*100}vw;top:-20px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${8+Math.random()*12}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${dur}s;animation-delay:${Math.random()*.5}s`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), dur * 1000 + 1000);
+    }, i * 25);
+  }
+}
+
+// ========== ADMIN PANEL ==========
+function openAdminPanel() { document.getElementById('admin-overlay').classList.add('open'); }
+function closeAdminPanel() { document.getElementById('admin-overlay').classList.remove('open'); }
+
+function adminLogin() {
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === DB.getAdminPass()) {
+    App.adminAuthed = true;
+    document.getElementById('admin-login-panel').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    loadAdminDashboard();
+    clearInterval(App.adminPollTimer);
+    App.adminPollTimer = setInterval(adminPoll, 5000);
+    showToast('✅ Admin login kamiyab!');
+  } else {
+    showToast('❌ Galat password!', 'error');
+  }
+}
+
+function adminLogout() {
+  clearInterval(App.adminPollTimer);
+  App.adminAuthed = false;
+  document.getElementById('admin-login-panel').style.display = 'flex';
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('admin-pass').value = '';
+}
+
+function adminPoll() {
+  if (!App.adminAuthed) return;
+  const children = DB.getAllChildren();
+  const pending = Object.values(children).filter(c => c.login_requested && !c.login_approved && !c.eidi_claimed);
+  document.getElementById('notification-dot').style.display = pending.length ? 'inline' : 'none';
+  renderPendingTable();
+  updateAdminStats();
+}
+
+function refreshAdmin() { loadAdminDashboard(); showToast('🔄 Refresh ho gaya!'); }
+
+function loadAdminDashboard() { updateAdminStats(); renderPendingTable(); renderAllTable(); }
+
+function updateAdminStats() {
+  const list = Object.values(DB.getAllChildren());
+  document.getElementById('astat-total').textContent = list.length;
+  document.getElementById('astat-pending').textContent = list.filter(c => c.login_requested && !c.login_approved).length;
+  document.getElementById('astat-approved').textContent = list.filter(c => c.login_approved && !c.eidi_claimed).length;
+  document.getElementById('astat-claimed').textContent = list.filter(c => c.eidi_claimed).length;
+  let rs = 0; list.filter(c => c.eidi_claimed && c.reward_type==='cash').forEach(c => rs += parseInt(c.assigned_reward)||0);
+  document.getElementById('astat-rs').textContent = rs;
+}
+
+function getStatusBadge(c) {
+  if (c.eidi_claimed) return '<span class="badge badge-claimed">✅ Claimed</span>';
+  if (c.login_approved) return '<span class="badge badge-approved">✔ Approved</span>';
+  if (c.login_requested) return '<span class="badge badge-pending">⏳ Pending</span>';
+  return '<span class="badge" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4)">○ Active</span>';
+}
+
+function renderPendingTable() {
+  const children = DB.getAllChildren();
+  const pending = Object.entries(children).filter(([,c]) => c.login_requested && !c.login_approved && !c.eidi_claimed);
+  const tbody = document.getElementById('apending-tbody');
+  const cnt = document.getElementById('apending-count');
+  if (!pending.length) { tbody.innerHTML = '<tr><td colspan="7" class="no-data">Koi pending request nahi</td></tr>'; cnt.style.display='none'; return; }
+  cnt.style.display='inline'; cnt.textContent = pending.length;
+  tbody.innerHTML = pending.map(([id,c]) => `
+    <tr style="background:rgba(255,165,0,.04)">
+      <td><code style="color:var(--gold-light);font-size:.75rem">${id}</code></td>
+      <td><strong>${c.name}</strong></td>
+      <td>${c.reward_type==='cash'?`<strong style="color:var(--gold)">Rs.${c.assigned_reward}</strong>`:`<span style="color:var(--gold)">🎁${c.assigned_reward}</span>`}</td>
+      <td><div class="credentials-box">${c.username||'—'}</div></td>
+      <td><div class="credentials-box" style="cursor:pointer" onclick="copyText('${c.password}')">
+        <span style="filter:blur(4px)" onmouseenter="this.style.filter='none'" onmouseleave="this.style.filter='blur(4px)'">${c.password||'—'}</span>
+        <span style="font-size:.7rem;color:rgba(255,248,231,.4)"> (hover)</span>
+      </div></td>
+      <td style="font-size:.75rem;color:rgba(255,248,231,.5)">${formatTime(c.request_time)}</td>
+      <td>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="admin-btn gold" style="padding:5px 12px;font-size:.72rem" onclick="approveLogin('${id}')">✅ Approve</button>
+          <button class="admin-btn danger" style="padding:5px 12px;font-size:.72rem" onclick="rejectReq('${id}')">❌ Reject</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderAllTable() {
+  const children = DB.getAllChildren();
+  const tbody = document.getElementById('aall-tbody');
+  if (!Object.keys(children).length) { tbody.innerHTML = '<tr><td colspan="6" class="no-data">Koi bacha nahi</td></tr>'; return; }
+  tbody.innerHTML = Object.entries(children).map(([id,c]) => `
+    <tr>
+      <td><code style="color:var(--gold-light);font-size:.75rem">${id}</code></td>
+      <td><strong>${c.name}</strong></td>
+      <td>${c.reward_type==='cash'?`Rs.${c.assigned_reward}`:`🎁${c.assigned_reward}`}</td>
+      <td>${getStatusBadge(c)}</td>
+      <td>${c.username?`<div class="credentials-box" style="font-size:.72rem">${c.username} / <span style="filter:blur(4px);cursor:pointer" onmouseenter="this.style.filter='none'" onmouseleave="this.style.filter='blur(4px)'">${c.password}</span></div>`:'<span style="color:rgba(255,255,255,.3);font-size:.8rem">—</span>'}</td>
+      <td>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          ${!c.eidi_claimed&&c.login_requested&&!c.login_approved?`<button class="admin-btn gold" style="padding:4px 10px;font-size:.7rem" onclick="approveLogin('${id}')">✅ Approve</button>`:''}
+          <button class="admin-btn outline" style="padding:4px 10px;font-size:.7rem" onclick="showChildQR('${id}')">📱 QR</button>
+          <button class="admin-btn danger" style="padding:4px 10px;font-size:.7rem" onclick="resetChild('${id}')">🔄 Reset</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function approveLogin(id) { DB.updateChild(id, { login_approved: true }); showToast(`✅ ${id} approved! Password de dein.`); loadAdminDashboard(); }
+function rejectReq(id) { DB.updateChild(id, { login_requested:false, login_approved:false, username:null, password:null, request_time:null }); showToast('❌ Request reject.', 'error'); loadAdminDashboard(); }
+function resetChild(id) { if (!confirm(`${id} reset karna hai?`)) return; DB.updateChild(id, { username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null }); showToast('🔄 Reset ho gaya!'); loadAdminDashboard(); }
+function resetAllClaims() { if (!confirm('Sab claims reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { eidi_claimed:false })); showToast('🔄 Sab claims reset!'); loadAdminDashboard(); }
+function resetAllReqs() { if (!confirm('Sab requests reset?')) return; Object.keys(DB.getAllChildren()).forEach(id => DB.updateChild(id, { login_requested:false, login_approved:false, username:null, password:null, eidi_claimed:false, request_time:null })); showToast('🔄 Sab reset!'); loadAdminDashboard(); }
+function copyText(t) { navigator.clipboard.writeText(t).then(() => showToast('📋 Copied!')); }
+
+function addChildAdmin() {
+  const id = document.getElementById('anew-id').value.trim().toUpperCase();
+  const name = document.getElementById('anew-name').value.trim();
+  const reward = document.getElementById('anew-reward').value.trim();
+  const type = document.getElementById('anew-type').value;
+  if (!id || !name || !reward) { showToast('❌ Sab fields bharein!', 'error'); return; }
+  if (DB.getChild(id)) { showToast(`❌ ID "${id}" pehle se hai!`, 'error'); return; }
+  DB.addChild(id, { name, assigned_reward:reward, reward_type:type, username:null, password:null, login_approved:false, login_requested:false, eidi_claimed:false, request_time:null });
+  document.getElementById('anew-id').value = '';
+  document.getElementById('anew-name').value = '';
+  document.getElementById('anew-reward').value = '';
+  showToast(`✅ ${name} add ho gaya!`); loadAdminDashboard();
+}
+
+function exportData() {
+  const b = new Blob([JSON.stringify(DB.load(), null, 2)], { type:'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'eid_eidi_data.json'; a.click();
+}
+
+// ========== QR CODES ==========
+function getChildURL(id) {
+  return window.location.origin + window.location.pathname + '?id=' + id;
+}
+
+function showChildQR(id) {
+  switchAdminTab(document.querySelector('[data-tab="aqr"]'), 'aqr');
+  setTimeout(() => generateQRCard(id), 100);
+}
+
+function generateAllQRs() {
+  const grid = document.getElementById('qr-grid');
+  grid.innerHTML = '';
+  const children = DB.getAllChildren();
+  Object.entries(children).forEach(([id, c], idx) => {
+    const card = document.createElement('div');
+    card.className = 'qr-card';
+    card.id = 'qrcard-' + id;
+    const url = getChildURL(id);
+    card.innerHTML = `
+      <div class="qr-wrapper" id="qr-${id}"></div>
+      <div style="color:var(--gold);font-family:'Cinzel Decorative',serif;font-size:.9rem;margin-top:10px">${c.name}</div>
+      <div style="color:rgba(255,248,231,.4);font-size:.68rem;margin:3px 0">${id}</div>
+      <div style="color:var(--gold-light);font-size:.8rem">${c.reward_type==='cash'?'Rs.'+c.assigned_reward:'🎁'+c.assigned_reward}</div>
+      <div style="margin-top:8px;font-size:.65rem;color:rgba(255,248,231,.3);word-break:break-all">${url}</div>
+    `;
+    grid.appendChild(card);
+    setTimeout(() => {
+      try {
+        new QRCode(document.getElementById('qr-'+id), { text: url, width: 140, height: 140, colorDark: '#004A29', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.M });
+      } catch(e) { document.getElementById('qr-'+id).innerHTML = '<div style="padding:20px;color:red;font-size:.75rem">QR Error</div>'; }
+    }, idx * 80);
+  });
+  showToast('📱 Sab QR codes tayyar!');
+}
+
+function generateQRCard(id) {
+  const grid = document.getElementById('qr-grid');
+  grid.innerHTML = '';
+  const c = DB.getChild(id);
+  const card = document.createElement('div');
+  card.className = 'qr-card';
+  const url = getChildURL(id);
+  card.innerHTML = `<div class="qr-wrapper" id="qr-single-${id}"></div>
+    <div style="color:var(--gold);font-family:'Cinzel Decorative',serif;font-size:1rem;margin-top:12px">${c.name}</div>
+    <div style="color:rgba(255,248,231,.4);font-size:.72rem;margin:4px 0">${id}</div>
+    <div style="color:rgba(255,248,231,.5);font-size:.68rem;word-break:break-all;margin-top:8px">${url}</div>`;
+  grid.appendChild(card);
+  setTimeout(() => {
+    new QRCode(document.getElementById('qr-single-'+id), { text: url, width: 180, height: 180, colorDark: '#004A29', colorLight: '#FFFFFF' });
+  }, 100);
+}
+
+// ========== TABS ==========
+function switchAdminTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const tab = document.getElementById(tabId);
+  if (tab) tab.classList.add('active');
+}
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

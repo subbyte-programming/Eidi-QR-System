@@ -1,0 +1,67 @@
+{
+  "children": {
+    "CHILD001": {
+      "name": "Ahmed",
+      "assigned_reward": "200",
+      "reward_type": "cash",
+      "username": null,
+      "password": null,
+      "login_approved": false,
+      "login_requested": false,
+      "eidi_claimed": false,
+      "request_time": null
+    },
+    "CHILD002": {
+      "name": "Fatima",
+      "assigned_reward": "500",
+      "reward_type": "cash",
+      "username": null,
+      "password": null,
+      "login_approved": false,
+      "login_requested": false,
+      "eidi_claimed": false,
+      "request_time": null
+    },
+    "CHILD003": {
+      "name": "Zain",
+      "assigned_reward": "Gift Box",
+      "reward_type": "gift",
+      "username": null,
+      "password": null,
+      "login_approved": false,
+      "login_requested": false,
+      "eidi_claimed": false,
+      "request_time": null
+    },
+    "CHILD004": {
+      "name": "Ayesha",
+      "assigned_reward": "100",
+      "reward_type": "cash",
+      "username": null,
+      "password": null,
+      "login_approved": false,
+      "login_requested": false,
+      "eidi_claimed": false,
+      "request_time": null
+    },
+    "CHILD005": {
+      "name": "Omar",
+      "assigned_reward": "50",
+      "reward_type": "cash",
+      "username": null,
+      "password": null,
+      "login_approved": false,
+      "login_requested": false,
+      "eidi_claimed": false,
+      "request_time": null
+    }
+  },
+  "admin": {
+    "password": "EidAdmin2025!"
+  },
+  "stats": {
+    "total_distributed": 0,
+    "total_claimed": 0,
+    "pending_approvals": 0
+  }
+}

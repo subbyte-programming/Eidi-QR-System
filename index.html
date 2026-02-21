@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>🌙 Eid Eidi – Apni Eidi Unlock Karein!</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    /* QR Library */
+    .qr-display { display: none; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ WELCOME SCREEN ============ -->
+  <div id="welcome-screen" class="screen active">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">☪️</span>
+        <div class="page-eyebrow">Eid ul Fitr 1446</div>
+        <h1>Eid Mubarak!</h1>
+        <div class="subtitle">عید مبارک ہو</div>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+
+      <div class="child-name-display">
+        <div class="greeting">Khush Amdeed</div>
+        <div class="name" id="child-name">Loading...</div>
+      </div>
+
+      <div class="welcome-message">
+        <p>Aapka ek khaas Eid tuhfa aapka intezaar kar raha hai! 🌟<br>
+        Apni Eidi unlock karne ke liye neechay button dabain.</p>
+      </div>
+
+      <div class="alert-box">
+        🔐 Aapki Eidi ek <strong>secret spin wheel</strong> ke peechay chhupi hai! Admin se approval ke baad aap spin kar sakte hain.
+      </div>
+
+      <button class="btn btn-gold" onclick="requestAccess()">
+        🔑 Login Access Request Karein
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ WAITING SCREEN ============ -->
+  <div id="waiting-screen" class="screen">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">🌙</span>
+        <h1>Intezaar Karein</h1>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+
+      <div class="waiting-animation">
+        <div class="hourglass-spin">⏳</div>
+        <div class="pulse-dots">
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+        </div>
+      </div>
+
+      <div class="alert-box warning">
+        ⏳ Aapki login request bhej di gayi hai! Admin approve karne ke baad aapko <strong>password</strong> de ga. Yeh page apne aap update hota rahega.
+      </div>
+
+      <div class="alert-box info">
+        💡 Admin se apna <strong>username aur password</strong> maangein aur neechay login karein.
+      </div>
+
+      <button class="btn btn-outline" style="margin-top:16px" onclick="showLoginScreen()">
+        🔓 Mujhe Password Mil Gaya – Login Karein
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div id="login-screen" class="screen">
+    <div class="card fade-in">
+      <div class="eid-logo">
+        <span class="moon-icon">🔐</span>
+        <h1>Secure Login</h1>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+
+      <div class="alert-box success">
+        ✅ Admin ne approve kar diya! Admin se apna username aur password lein aur login karein.
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <label>Username</label>
+        <input type="text" id="login-username" placeholder="Admin ne diya hua username" autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Admin ne diya hua password" autocomplete="current-password">
+      </div>
+
+      <button class="btn btn-gold" id="login-btn" onclick="attemptLogin()">
+        🎡 Login & Eidi Unlock Karein!
+      </button>
+
+      <button class="btn btn-outline" style="margin-top: 12px;" onclick="showWaitingScreen()">
+        ← Wapas Jaein
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ WHEEL SCREEN ============ -->
+  <div id="wheel-screen" class="screen">
+    <div class="card fade-in" style="text-align:center; max-width:520px">
+      <div class="eid-logo">
+        <span class="moon-icon">🎡</span>
+        <h1>Eidi Wheel!</h1>
+        <div class="subtitle">Apni Eidi Spin Karein</div>
+      </div>
+
+      <div class="alert-box" style="margin-bottom:12px; text-align:center;">
+        🎯 Aapke paas sirf <strong>3 spins</strong> hain! Akhri spin par aapki asli Eidi reveal hogi.
+      </div>
+
+      <div class="trials-counter">
+        <div class="trial-pip"></div>
+        <div class="trial-pip"></div>
+        <div class="trial-pip"></div>
+      </div>
+
+      <div class="wheel-container">
+        <div class="wheel-pointer">▼</div>
+        <canvas id="wheel-canvas" width="300" height="300"></canvas>
+      </div>
+
+      <div class="spin-btn-wrap">
+        <button class="btn btn-gold" id="spin-btn" onclick="spinWheel()">
+          🎡 Spin Karein! (3 baqi)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT SCREEN ============ -->
+  <div id="result-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <div class="eid-logo">
+        <span class="moon-icon">🎉</span>
+        <h1>Mubarak Ho!</h1>
+        <div class="subtitle">مبارک ہو</div>
+      </div>
+      <div class="ornament">✦ ✧ ✦</div>
+
+      <div class="child-name-display">
+        <div class="greeting">Eidi Hasil Karne Wale</div>
+        <div class="name" id="child-result-name"></div>
+      </div>
+
+      <div class="reward-display">
+        <span class="claim-icon" id="result-icon">💰</span>
+        <span class="reward-amount" id="result-amount">200</span>
+        <div class="reward-label" id="result-label">Eidi Mubarak!</div>
+      </div>
+
+      <div class="alert-box success">
+        ✅ Aapki Eidi successfully claim ho gayi! Admin se apna tuhfa hasil karein. Eid Mubarak! 🌙⭐
+      </div>
+
+      <div class="alert-box warning">
+        🔒 Yeh Eidi sirf ek baar claim ho sakti hai. Dobara access nahi milega.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ALREADY CLAIMED SCREEN ============ -->
+  <div id="claimed-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <span class="claimed-icon">✅</span>
+      <h2 style="font-family: 'Cinzel Decorative', serif; color: var(--gold); margin-bottom: 12px;">Eidi Claim Ho Chuki!</h2>
+      <div class="alert-box warning" style="margin-top: 16px;">
+        🔒 Aap pehle hi apni Eidi claim kar chuke hain. Har bachay ko sirf ek baar Eidi milti hai! Eid Mubarak! ☪️
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INVALID SCREEN ============ -->
+  <div id="invalid-screen" class="screen">
+    <div class="card fade-in" style="text-align:center">
+      <span style="font-size: 4rem; display: block; margin-bottom: 16px;">❌</span>
+      <h2 style="font-family: 'Cinzel Decorative', serif; color: var(--danger); margin-bottom: 12px;">Invalid QR Code</h2>
+      <div class="alert-box warning">
+        ⚠️ Yeh QR code valid nahi hai ya tampered hai. Apna asli envelope scan karein ya admin se rabita karein.
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
